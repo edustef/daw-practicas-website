@@ -1,5 +1,5 @@
  <?php
-  $IS_PRODUCTION = $true;
+  $IS_PRODUCTION = true;
   $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' . ($IS_PRODUCTION ? '' : 'dws/practicas/');
   $practicas = json_decode(file_get_contents($root . "practicas.json"), true);
   ?>
