@@ -14,7 +14,7 @@
 
  <body>
    <div class="columns">
-     <navbar id="navbar" class="menu is-2 column section">
+     <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
        <a href=<?= $root . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($practicas as $practica => $practicaData) {
@@ -31,4 +31,6 @@
         }
         ?>
      </navbar>
+     <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
+     <div class="menu is-2 column section" style="height: 100vh; overflow-y:auto"></div>
      <div class="column section has-background-light" style="height: 100%; min-height:100vh;">
