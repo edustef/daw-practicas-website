@@ -1,7 +1,7 @@
 <?php
 
 //Is this the production server or not?
-define('PRODUCTION', false);
+define('PRODUCTION', true);
 
 //Set the site URL.
 if (PRODUCTION) {
