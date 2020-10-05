@@ -25,11 +25,13 @@ It is important that I document this because if it works nicely I can do this to
 │   ├── e2php
 │   ├── e3php
 │   ├── e4.php
-├── practica_PDFs
-│   ├── tema2-practica1.pdf
-│   ├── tema2-practica2.pdf
-│   ├── tema3-practica1.pdf
-│   └── tema3-practica2.pdf
+│   . . .
+├── practica_2
+│   ├── e1.php
+│   ├── e2php
+│   ├── e3php
+│   . . .
+│. . .
 ├── practicas.json
 ├── style.css
 └── templates
