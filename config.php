@@ -4,7 +4,7 @@ define("PRODUCTION", "PRODUCTION");
 define("PRODUCTION_TEST", "PRODUCTION_TEST");
 define("LOCAL", "LOCAL");
 
-define('SERVER_TYPE', LOCAL);
+define('SERVER_TYPE', PRODUCTION_TEST);
 
 //Set the site URL.
 if (SERVER_TYPE == PRODUCTION) {
