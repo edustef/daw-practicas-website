@@ -1,5 +1,5 @@
  <?php
-  $IS_PRODUCTION = false;
+  $IS_PRODUCTION = true;
   $root =  ($IS_PRODUCTION ? '' : '/dws/practicas/');
   $practicas = json_decode(file_get_contents(__DIR__ . "/../practicas.json"), true);
   ?>
