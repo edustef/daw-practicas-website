@@ -1,7 +1,8 @@
  <?php
-  $IS_PRODUCTION = false;
-  $root =  ($IS_PRODUCTION ? '/' : '/dws/practicas/');
-  $practicas = json_decode(file_get_contents("./practicas.json"), true);
+  include_once(__DIR__ . "/../config.php");
+
+  $practicas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
+  natcasesort($practicas);
   ?>
  <html>
 
@@ -15,16 +16,17 @@
  <body>
    <div class="columns">
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
-       <a href=<?= "./index.php" ?>><strong>Home</strong></a>
+       <a href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
-        foreach ($practicas as $practica => $practicaData) {
-          echo '<details id="' . $practica . '">';
-          $numberExercises = intval($practicaData["numberExercises"]);
+        foreach ($practicas as $practica) {
           $practicaFormated = str_replace("_", " ", $practica);
-          echo '<summary class="menu-label">' . ucfirst($practicaFormated) .  '</summary>';
+          $ejercicios = array_diff(scandir(__DIR__ . '/../practicas/' . $practica), array(".", ".."));
+          natcasesort($ejercicios);
+          echo '<details id="' . $practica . '">';
+          echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
           echo '<ul class="menu-list">';
-          for ($i = 1; $i <= $numberExercises; $i++) {
-            echo '<li><a href="' . $root . $practica . '/e' . $i . '.php">Ejercicio ' . $i . '</a></li>';
+          foreach ($ejercicios as $ejercicio) {
+            echo '<li><a href="' . SITE_URL . 'practicas/' . $practica . '/' . $ejercicio . '">' . $ejercicio . '</a></li>';
           }
           echo '</ul>';
           echo '</details>';

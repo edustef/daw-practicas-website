@@ -1,4 +1,4 @@
-<?php include_once("../templates/header.php") ?><div class="block">
+<?php include_once(__DIR__ . "/../../templates/header.php") ?><div class="block">
   <h1 class="title"> Ejercicio 2</h1>
   <?php
   $cadena1 = "Hola a todo el mundo ";
@@ -13,4 +13,4 @@
       <p>Cadena3: <?= $cadena3 ?></p>
     </div>
   </div>
-</div><?php include_once("../templates/footer.php") ?>
+</div><?php include_once(__DIR__ . "/../../templates/footer.php") ?>

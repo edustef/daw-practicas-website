@@ -1,4 +1,4 @@
-<?php include_once("../templates/header.php") ?><div class="block">
+<?php include_once(__DIR__ . "/../../templates/header.php") ?><div class="block">
   <h1 class="title"> Ejercicio 9</h1>
   <div class="content is-medium">
     <p>Result: </p>
@@ -15,4 +15,4 @@
     echo '</div>';
     ?>
   </div>
-</div><?php include_once("../templates/footer.php") ?>
+</div><?php include_once(__DIR__ . "/../../templates/footer.php") ?>

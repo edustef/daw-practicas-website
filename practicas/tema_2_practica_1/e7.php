@@ -1,4 +1,4 @@
-<?php include_once("../templates/header.php") ?><div class="block">
+<?php include_once(__DIR__ . "/../../templates/header.php") ?><div class="block">
   <h1 class="title"> Ejercicio 7</h1>
   <?php
   $numArr = [1, 2, 3, 4, 5];
@@ -24,4 +24,4 @@
     echo '</div>';
     ?>
   </div>
-</div><?php include_once("../templates/footer.php") ?>
+</div><?php include_once(__DIR__ . "/../../templates/footer.php") ?>
