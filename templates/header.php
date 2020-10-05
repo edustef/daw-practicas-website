@@ -1,7 +1,7 @@
  <?php
-  $IS_PRODUCTION = true;
+  $IS_PRODUCTION = false;
   $root =  ($IS_PRODUCTION ? '/' : '/dws/practicas/');
-  $practicas = json_decode(file_get_contents(__DIR__ . "/../practicas.json"), true);
+  $practicas = json_decode(file_get_contents("./practicas.json"), true);
   ?>
  <html>
 
@@ -10,13 +10,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-   <link rel="stylesheet" href=<?= $root . "style.css" ?>>
  </head>
 
  <body>
    <div class="columns">
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
-       <a href=<?= $root . "index.php" ?>><strong>Home</strong></a>
+       <a href=<?= "./index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($practicas as $practica => $practicaData) {
           echo '<details id="' . $practica . '">';
