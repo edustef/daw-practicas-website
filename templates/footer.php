@@ -1,6 +1,6 @@
   </div>
   </div>
-  <script src="/dws/practicas/scripts/storeDetailsMenu.js"></script>
+  <script src=<?= SITE_URL . 'scripts/storeDetailsMenu.js' ?>></script>
   </body>
 
   </html>
