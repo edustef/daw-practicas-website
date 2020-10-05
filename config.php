@@ -1,15 +1,18 @@
 <?php
 
-//Is this the production server or not?
-define('DEV_TYPE', "PRODUCTION_TEST");
+define("PRODUCTION", "PRODUCTION");
+define("PRODUCTION_TEST", "PRODUCTION_TEST");
+define("LOCAL", "LOCAL");
+
+define('SERVER_TYPE', LOCAL);
 
 //Set the site URL.
-if (DEV_TYPE == "PRODUCTION") {
+if (SERVER_TYPE == PRODUCTION) {
   //The URL of our live website.
   define('SITE_URL', 'https://dws-practicas.herokuapp.com/');
-} elseif (DEV_TYPE == "PRODUCTION_TEST") {
+} elseif (SERVER_TYPE == PRODUCTION_TEST) {
   //The URL that we use in our development enviornment.
   define('SITE_URL', 'https://dws-practicas-dev.herokuapp.com/');
-} else {
+} elseif (SERVER_TYPE == LOCAL) {
   define('SITE_URL', 'http://localhost/dws/practicas/');
 }

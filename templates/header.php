@@ -16,13 +16,13 @@
  <body>
    <div class="columns">
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
-       <a href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
+       <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($practicas as $practica) {
           $practicaFormated = str_replace("_", " ", $practica);
           $ejercicios = array_diff(scandir(__DIR__ . '/../practicas/' . $practica), array(".", ".."));
           natcasesort($ejercicios);
-          echo '<details id="' . $practica . '">';
+          echo '<details class="mt-2" id="' . $practica . '">';
           echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
           echo '<ul class="menu-list">';
           foreach ($ejercicios as $ejercicio) {
