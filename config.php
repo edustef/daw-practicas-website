@@ -1,7 +1,7 @@
 <?php
 
 //Is this the production server or not?
-define('DEV_TYPE', "LOCAL");
+define('DEV_TYPE', "PRODUCTION_TEST");
 
 //Set the site URL.
 if (DEV_TYPE == "PRODUCTION") {
