@@ -1,6 +1,6 @@
-<?php include_once(__DIR__ . "/../../templates/header.php") ?>
+<?php include_once(__DIR__ . "/../../../templates/header.php") ?>
 <div class="block">
-  <h1 class="title"> Ejercicio 1</h1>
+  <h1 class="title">Practica 1 Ejercicio 1</h1>
   <?php
   // rand() gives a number between 0 and getrandmax(); or range(min, max) if you provide arguments it will be between the first and secon parameter. 
   $n1 = rand();
@@ -14,4 +14,4 @@
     </div>
   </div>
 </div>
-<?php include_once(__DIR__ . "/../../templates/footer.php") ?>
+<?php include_once(__DIR__ . "/../../../templates/footer.php") ?>

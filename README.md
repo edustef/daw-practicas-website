@@ -30,11 +30,13 @@ It is important that I document this because if it works nicely I can do this to
 │       ├── e2.php
 │       ├── e3.php
 │       ├── e4.php
+│       . . .
 │   └── tema_2_practica_2
 │       ├── e1.php
 │       ├── e2.php
 │       ├── e3.php
 │       ├── e4.php
+│       . . .
 ├── scripts
 │   └── storeDetailsMenu.js
 └── templates
@@ -59,3 +61,7 @@ In header we have a navbar where we create dinamically the links to the ejercici
 ### createPage.php
 
 This is the actual script that creates the pages.
+
+## TODO
+
+* Change global variable SERVER_TYPE to an env variable so I dont have to commit and push everytime I want to test the website in production or production test

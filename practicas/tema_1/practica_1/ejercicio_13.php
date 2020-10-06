@@ -1,5 +1,5 @@
-<?php include_once(__DIR__ . "/../../templates/header.php") ?><div class="block">
-  <h1 class="title"> Ejercicio 13</h1>
+<?php include_once(__DIR__ . "/../../../templates/header.php") ?><div class="block">
+  <h1 class="title">Practica 1 Ejercicio 13</h1>
   <div class="content is-medium">
     <?php
     $queue = array();
@@ -48,4 +48,4 @@
     printQueue($queue);
     ?>
   </div>
-</div><?php include_once(__DIR__ . "/../../templates/footer.php") ?>
+</div><?php include_once(__DIR__ . "/../../../templates/footer.php") ?>

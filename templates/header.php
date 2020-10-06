@@ -1,8 +1,10 @@
  <?php
   include_once(__DIR__ . "/../config.php");
 
-  $practicas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
-  natcasesort($practicas);
+  $temas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
+  natcasesort($temas);
+  $phpSelfArr = explode("/", $_SERVER["PHP_SELF"]);
+  $activePage = array_pop($phpSelfArr);
   ?>
  <html>
 
@@ -18,15 +20,30 @@
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
-        foreach ($practicas as $practica) {
-          $practicaFormated = str_replace("_", " ", $practica);
-          $ejercicios = array_diff(scandir(__DIR__ . '/../practicas/' . $practica), array(".", ".."));
-          natcasesort($ejercicios);
-          echo '<details class="mt-2" id="' . $practica . '">';
-          echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
+        foreach ($temas as $tema) {
+          $temaFormated = str_replace("_", " ", $tema);
+          $practicas = array_diff(scandir(__DIR__ . '/../practicas/' . $tema), array(".", ".."));
+          natcasesort($practicas);
+          echo '<details class="mt-2" id="' . $tema . '">';
+          echo '<summary class="menu-label">' . $temaFormated .  '</summary>';
           echo '<ul class="menu-list">';
-          foreach ($ejercicios as $ejercicio) {
-            echo '<li><a href="' . SITE_URL . 'practicas/' . $practica . '/' . $ejercicio . '">' . $ejercicio . '</a></li>';
+          foreach ($practicas as $practica) {
+            $practicaFormated = str_replace("_", " ", $practica);
+            $ejercicios = array_diff(scandir(__DIR__ . '/../practicas/' . $tema . '/' . $practica), array(".", ".."));
+            natcasesort($ejercicios);
+            echo '<details class="mt-2 ml-2" id="' . $practica . '">';
+            echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
+            echo '<ul class="menu-list">';
+            foreach ($ejercicios as $ejercicio) {
+              $ejercicioFormated = str_replace("_", " ", $ejercicio);
+              if ($ejercicio == $activePage) {
+                echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $tema . '/' . $practica . '/' . $ejercicio . '">' . $ejercicioFormated . '</a></li>';
+              } else {
+                echo '<li><a href="' . SITE_URL . 'practicas/' . $tema . '/' . $practica . '/' . $ejercicio . '">' . $ejercicioFormated . '</a></li>';
+              }
+            }
+            echo '</ul>';
+            echo '</details>';
           }
           echo '</ul>';
           echo '</details>';
