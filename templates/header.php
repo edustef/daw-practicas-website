@@ -4,7 +4,7 @@
   $temas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
   natcasesort($temas);
   $phpSelfArr = explode("/", $_SERVER["PHP_SELF"]);
-  $activePage = array_pop($phpSelfArr);
+  $activePage =  implode("/", array_slice($phpSelfArr, count($phpSelfArr) - 3, 3));
   ?>
  <html>
 
@@ -36,10 +36,12 @@
             echo '<ul class="menu-list">';
             foreach ($ejercicios as $ejercicio) {
               $ejercicioFormated = str_replace("_", " ", $ejercicio);
-              if ($ejercicio == $activePage) {
-                echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $tema . '/' . $practica . '/' . $ejercicio . '">' . $ejercicioFormated . '</a></li>';
+              $pathToPage = $tema . '/' . $practica . '/' . $ejercicio;;
+
+              if ($pathToPage == $activePage) {
+                echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
               } else {
-                echo '<li><a href="' . SITE_URL . 'practicas/' . $tema . '/' . $practica . '/' . $ejercicio . '">' . $ejercicioFormated . '</a></li>';
+                echo '<li><a href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
               }
             }
             echo '</ul>';
