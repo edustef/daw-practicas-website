@@ -7,7 +7,7 @@
     function addToQueue(&$queue, $n)
     {
       for ($i = 0; $i < $n; $i++) {
-        array_push($queue, rand(1, 50));
+        array_unshift($queue, rand(1, 50));
       }
     }
 
@@ -34,10 +34,13 @@
     ?>
     <p>Result: </p>
     <?php
-    echo 'Add 5 to queue';
-    addToQueue($queue, 5);
+    echo 'The queue';
+    addToQueue($queue, 3);
     printQueue($queue);
-    echo 'Remove 2 to queue';
+    echo "Add 3 to queue";
+    addToQueue($queue, 3);
+    printQueue($queue);
+    echo 'Remove 2 from queue';
     removeFromQueue($queue, 2);
     printQueue($queue);
     echo 'Empty queue';
