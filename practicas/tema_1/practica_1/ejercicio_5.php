@@ -1,5 +1,5 @@
-<?php include_once(__DIR__ . "/../../templates/header.php") ?><div class="block">
-  <h1 class="title"> Ejercicio 5</h1>
+<?php include_once(__DIR__ . "/../../../templates/header.php") ?><div class="block">
+  <h1 class="title">Practica 1 Ejercicio 5</h1>
   <?php
   $numero = rand(0, 99);
 
@@ -32,4 +32,4 @@
     echo '</div">';
     ?>
   </div>
-</div><?php include_once(__DIR__ . "/../../templates/footer.php") ?>
+</div><?php include_once(__DIR__ . "/../../../templates/footer.php") ?>
