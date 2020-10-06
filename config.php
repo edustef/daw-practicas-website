@@ -6,18 +6,9 @@ define("LOCAL", "LOCAL");
 
 define('SERVER_TYPE', PRODUCTION_TEST);
 
-echo $_SERVER["SERVER_NAME"];
-echo $_SERVER["SERVER_PROTOCOL"];
 
-// //Set the site URL.
-// if (SERVER_TYPE == PRODUCTION) {
-//   //The URL of our live website.
-//   define('SITE_URL', 'https://dws-practicas.herokuapp.com/');
-// } elseif (SERVER_TYPE == PRODUCTION_TEST) {
-//   //The URL that we use in our development enviornment.
-//   define('SITE_URL', 'https://dws-practicas-dev.herokuapp.com/');
-// } elseif (SERVER_TYPE == LOCAL) {
-//   define('SITE_URL', 'http://localhost/dws/practicas/');
-// }
-
-define('SITE_URL', $_SERVER["SERVER_NAME"] . '/');
+if ($_SERVER["SERVER_NAME"] == "localhost") {
+  define('SITE_URL', 'http://' . $_SERVER["SERVER_NAME"] . '/dws/practicas/');
+} else {
+  define('SITE_URL', 'https://' . $_SERVER["SERVER_NAME"] . '/');
+}
