@@ -1,5 +1,4 @@
 <?php include_once(__DIR__ . "/../../../templates/header.php") ?>
-
 <div class="block">
 <?php
   $activePageFormated = explode(".", str_replace("_", " ", $activePage))[0];
@@ -8,24 +7,25 @@
   <p class="mb-6 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
-  $cadena1 = "Lo que estoy escribiendo es un string";
-  $cadena2 = " muuuuuy largo";
-  $cadena3 = $cadena1 . $cadena2;
+  $directionIP = "192.168.11.200";
   ?>
   <div class="content is-medium">
-    <p><?= $cadena3 ?></p>
     <p>Result: </p>
-    <p>La posición de la primera ‘e’.</p>
+    <p>Show IP without dot</p>
     <div class="box">
-      <?= strpos($cadena3, "e"); ?>
+      <?php
+      $directionIPArr = explode(".", $directionIP);
+      foreach ($directionIPArr as $digit) {
+        echo $digit . " ";
+      }
+      ?>
     </div>
-    <p>La posición de la última ‘u’.</p>
+    <p>Show IP with ::</p>
     <div class="box">
-      <?= strrpos($cadena3, "u"); ?>
-    </div>
-    <p>La posición de la palabra “texto”</p>
-    <div class="box">
-      <?= strpos($cadena3, "texto"); ?>
+      <?php
+      $directionIP = implode("::", $directionIPArr);
+      echo $directionIP;
+      ?>
     </div>
   </div>
 </div>
