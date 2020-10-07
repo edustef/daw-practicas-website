@@ -1,6 +1,11 @@
 <?php include_once(__DIR__ . "/../../../templates/header.php") ?>
 <div class="block">
-  <h1 class="title">Practica 1 Ejercicio 1</h1>
+  <?php
+  $activePageFormated = explode(".", str_replace("_", " ", $activePage))[0];
+  $activePageArr = explode("/", $activePageFormated);
+  ?>
+  <p class="mb-6 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
+  <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
   // rand() gives a number between 0 and getrandmax(); or range(min, max) if you provide arguments it will be between the first and secon parameter. 
   $n1 = rand();

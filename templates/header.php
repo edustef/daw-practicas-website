@@ -21,27 +21,32 @@
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($temas as $tema) {
+          $absolutePathToPracticas = __DIR__ . '/../practicas/';
           $temaFormated = str_replace("_", " ", $tema);
-          $practicas = array_diff(scandir(__DIR__ . '/../practicas/' . $tema), array(".", ".."));
+          $practicas = array_diff(scandir($absolutePathToPracticas . $tema), array(".", ".."));
           natcasesort($practicas);
           echo '<details class="mt-2" id="' . $tema . '">';
           echo '<summary class="menu-label">' . $temaFormated .  '</summary>';
           echo '<ul class="menu-list">';
           foreach ($practicas as $practica) {
             $practicaFormated = str_replace("_", " ", $practica);
-            $ejercicios = array_diff(scandir(__DIR__ . '/../practicas/' . $tema . '/' . $practica), array(".", ".."));
+            $ejercicios = array_diff(scandir($absolutePathToPracticas . $tema . '/' . $practica), array(".", ".."));
             natcasesort($ejercicios);
             echo '<details class="mt-2 ml-2" id="' . $practica . '">';
             echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
             echo '<ul class="menu-list">';
             foreach ($ejercicios as $ejercicio) {
-              $ejercicioFormated = str_replace("_", " ", $ejercicio);
+              $ejercicioFormated = explode(".", str_replace("_", " ", $ejercicio))[0];
               $pathToPage = $tema . '/' . $practica . '/' . $ejercicio;;
+              $absolutePathToEjercicio = $absolutePathToPracticas . $pathToPage;
 
-              if ($pathToPage == $activePage) {
-                echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
-              } else {
-                echo '<li><a href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
+              if (is_file($absolutePathToEjercicio)) {
+                if ($pathToPage == $activePage) {
+                  $_SESSION["currentPagePath"] = $pathToPage;
+                  echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
+                } else {
+                  echo '<li><a href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
+                }
               }
             }
             echo '</ul>';
