@@ -21,7 +21,7 @@
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
        <div class="level">
          <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
-         <a id="theme-toggler" href="#"><i class="far fa-moon is-size-4"></i></a>
+         <button id="theme-toggler" href="#"><i class="far fa-moon is-size-4"></i></button>
        </div>
        <?php
         foreach ($temas as $tema) {
