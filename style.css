@@ -2,10 +2,9 @@ html[data-theme='dark'] {
   filter: invert(1) hue-rotate(180deg);
 }
 
-html {
-  transition: color 300ms, background-color 300ms;
+.invertFilter {
+  filter: invert(1) hue-rotate(180deg);
 }
-
 
 /* This fixes and issue with child nodes inside the button being clickable */
 button>* {

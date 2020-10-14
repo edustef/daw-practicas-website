@@ -6,23 +6,19 @@
   $phpSelfArr = explode("/", $_SERVER["PHP_SELF"]);
   $activePage =  implode("/", array_slice($phpSelfArr, count($phpSelfArr) - 3, 3));
   ?>
- <html data-theme="light">
+ <html>
 
  <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-   <link rel="stylesheet" href=<?= SITE_URL . "style.css" ?>>
  </head>
 
  <body>
    <div class="columns">
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
-       <div class="level">
-         <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
-         <button id="theme-toggler" href="#"><i class="far fa-moon is-size-4"></i></button>
-       </div>
+       <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($temas as $tema) {
           $absolutePathToPracticas = __DIR__ . '/../practicas/';
@@ -63,4 +59,4 @@
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
      <div class="menu is-2 column section" style="height: 100vh; overflow-y:auto"></div>
-     <div class="column section has-background-light has-text-black" style="height: 100%; min-height:100vh;">
+     <div class="column section has-background-light" style="height: 100%; min-height:100vh;">
