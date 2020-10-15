@@ -17,7 +17,7 @@
 
  <body>
    <div class="columns">
-     <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed">
+     <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed; min-width:15rem;">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($temas as $tema) {
@@ -58,5 +58,5 @@
         ?>
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
-     <div class="menu is-2 column section" style="height: 100vh; overflow-y:auto"></div>
+     <div class="menu is-2 column section" style="height: 100vh; overflow-y:auto; min-width:15rem;"></div>
      <div class="column section has-background-light" style="height: 100%; min-height:100vh;">
