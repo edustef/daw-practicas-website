@@ -1,4 +1,5 @@
  <?php
+  session_start();
   include_once(__DIR__ . "/../config.php");
 
   $temas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
@@ -16,7 +17,7 @@
  </head>
 
  <body>
-   <div class="columns">
+   <div class="columns is-mobile">
      <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed; min-width:15rem;">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
