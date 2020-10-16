@@ -32,7 +32,7 @@
             $practicaFormated = str_replace("_", " ", $practica);
             $ejercicios = array_diff(scandir($absolutePathToPracticas . $tema . '/' . $practica), array(".", ".."));
             natcasesort($ejercicios);
-            echo '<details class="mt-2 ml-2" id="' . $practica . '">';
+            echo '<details class="mt-2 ml-2" id="' . $tema . '-' . $practica . '">';
             echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
             echo '<ul class="menu-list">';
             foreach ($ejercicios as $ejercicio) {
