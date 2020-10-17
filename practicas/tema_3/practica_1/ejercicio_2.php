@@ -7,39 +7,40 @@
   <p class="mb-6 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
-  $_SESSION["asignaturas"]["DWS"] = 0;
-  $_SESSION["asignaturas"]["DWC"] = 0;
-  $_SESSION["asignaturas"]["DI"] = 0;
-  $_SESSION["asignaturas"]["DAW"] = 0;
-  $_SESSION["asignaturas"]["EIE"] = 0;
-  $_SESSION["asignaturas"]["LC"] = 0;
+  // session_unset();
+  include_once('ejercicio_2/asignaturas.php');
+  include_once('ejercicio_2/displayVote.php');
+
+  function vote($asignatura, $isIncrement)
+  {
+    $vote = $_SESSION['asignaturas'][$asignatura];
+    if ($isIncrement && $vote != 100) {
+      $_SESSION['asignaturas'][$asignatura] += 10;
+    } elseif (!$isIncrement && $vote != 0) {
+      $_SESSION['asignaturas'][$asignatura] -= 10;
+    }
+  }
   ?>
   <div class="content is-medium">
     <p>Result: </p>
     <div class="box">
-      <div class="columns is-vcentered is-mobile">
-        <div class="column is-narrow">
-          <div class="level">
-            <div class="level-item">
-              <button class="button is-danger mr-4">
-                <span class="icon is-small">
-                  <i class="fas fa-minus"></i>
-                </span>
-              </button>
-              <button class="button is-primary">
-                <span class="icon is-small">
-                  <i class="fas fa-plus"></i>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="column is-size-4 is-narrow">DWS</div>
-        <div class="column">
-          <progress class="progress is-primary" value="15" max="100">15%</progress>
-        </div>
-      </div>
+      <form action="" method="POST">
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vote'])) {
+          // Exptected vote => increment-DWS or decrement-DWC
+          $values = explode('-', $_POST['vote']);
+          $isIncrement = $values[0] == 'increment';
+          $asignatura = $values[1];
+
+          vote($asignatura, $isIncrement);
+        }
+        foreach ($_SESSION['asignaturas'] as $asignatura => $vote) {
+          displayVote($asignatura, $vote);
+        }
+        ?>
+      </form>
     </div>
   </div>
 </div>
+<!-- <script src="ejercicio_2/script.js"></script> -->
 <?php include_once(__DIR__ . "/../../../templates/footer.php") ?>
