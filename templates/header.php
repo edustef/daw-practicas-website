@@ -14,11 +14,27 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+   <style>
+     .side-navbar {
+       height: 100vh;
+       overflow-y: auto;
+       min-width: 15rem;
+     }
+
+     #navbar {
+       position: fixed;
+     }
+
+     #main-container {
+       height: 100%;
+       min-height: 100vh;
+     }
+   </style>
  </head>
 
  <body>
    <div class="columns is-mobile">
-     <navbar id="navbar" class="menu column is-2 section" style="height: 100vh; overflow-y:auto; position:fixed; min-width:15rem;">
+     <navbar id="navbar" class="side-navbar column is-2 section">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($temas as $tema) {
@@ -59,5 +75,5 @@
         ?>
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
-     <div class="menu is-2 column section" style="height: 100vh; overflow-y:auto; min-width:15rem;"></div>
-     <div class="column section has-background-light" style="height: 100%; min-height:100vh;">
+     <div class="side-navbar is-2 column section"></div>
+     <div id="main-container" class="column section has-background-light">
