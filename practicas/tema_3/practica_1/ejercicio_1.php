@@ -47,18 +47,16 @@
           if (!isset($_SESSION['selectedTeam'])) {
             $_SESSION['selectedTeam'] = -1;
           }
-          if (isset($_GET["basketballTeams"])) {
-            if ($_GET["basketballTeams"] != "none") {
-              $_SESSION['selectedTeam'] = $_GET['basketballTeams'];
+          if (isset($basketballTeams[$_GET['basketballTeams']])) {
+            $_SESSION['selectedTeam'] = $_GET['basketballTeams'];
 
-              echo '<div class="tile is-child">';
-              echo '    <figure class="image is-4by3">';
-              echo '        <img src="' . $basketballTeams[$_GET["basketballTeams"]]["imgUrl"] . '" style="object-fit:scale-down">';
-              echo '    </figure>';
-              echo '</div>';
-            } else {
-              $_SESSION['selectedTeam'] = -1;
-            }
+            echo '<div class="tile is-child">';
+            echo '    <figure class="image is-4by3">';
+            echo '        <img src="' . $basketballTeams[$_GET["basketballTeams"]]["imgUrl"] . '" style="object-fit:scale-down">';
+            echo '    </figure>';
+            echo '</div>';
+          } else {
+            $_SESSION['selectedTeam'] = -1;
           }
           ?>
           <form class="tile is-child" action="" method="GET">
