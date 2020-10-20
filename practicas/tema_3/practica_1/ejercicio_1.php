@@ -8,26 +8,31 @@
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
   $basketballTeams = array(
+    "lakers" =>
     array(
       "id" => "lakers",
       "name" => "Los Angeles Lakers",
       "imgUrl" => "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Los_Angeles_Lakers_logo.svg/1200px-Los_Angeles_Lakers_logo.svg.png",
     ),
+    "goldenStateWarriors" =>
     array(
       "id" => "goldenStateWarriors",
       "name" => "Golden State Warriors",
       "imgUrl" => "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Golden_State_Warriors_logo.svg/1200px-Golden_State_Warriors_logo.svg.png",
     ),
+    "bostonCeltics" =>
     array(
       "id" => "bostonCeltics",
       "name" => "Boston Celitcs",
       "imgUrl" => "https://a.espncdn.com/i/teamlogos/nba/500/bos.png",
     ),
+    "houstonRockets" =>
     array(
       "id" => "houstonRockets",
       "name" => "Houston Rockets",
       "imgUrl" => "https://upload.wikimedia.org/wikipedia/commons/6/6c/Houston-Rockets-logo.png",
     ),
+    "miamiHeat" =>
     array(
       "id" => "miamiHeat",
       "name" => "Miami Heat",
@@ -47,7 +52,9 @@
           if (!isset($_SESSION['selectedTeam'])) {
             $_SESSION['selectedTeam'] = -1;
           }
-          if (isset($basketballTeams[$_GET['basketballTeams']])) {
+
+          // Show the image of the team
+          if (isset($_GET['basketballTeams']) && in_array($_GET['basketballTeams'], array_keys($basketballTeams))) {
             $_SESSION['selectedTeam'] = $_GET['basketballTeams'];
 
             echo '<div class="tile is-child">';
