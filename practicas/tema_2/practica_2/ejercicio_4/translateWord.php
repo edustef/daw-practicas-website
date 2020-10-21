@@ -4,7 +4,7 @@
  * returns an array where index[0] => language(english or spanish) and index[1] => the word translated
  * if the word is not found it will return null;
  */
-function findWord($randomWord, $word_list_en, $word_list_es)
+function translateWord($randomWord, $word_list_en, $word_list_es)
 {
   include_once('getIndexOfWord.php');
 

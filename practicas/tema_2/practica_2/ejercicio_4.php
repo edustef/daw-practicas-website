@@ -12,7 +12,7 @@
   $randomWord = $allWords[rand(0, count($allWords) - 1)];
 
   include('ejercicio_4/dictionary.php');
-  include_once("ejercicio_4/findWord.php");
+  include_once("ejercicio_4/translateWord.php");
 
 
   ?>
@@ -20,10 +20,10 @@
     <p>Result: </p>
     <div class="box">
       <?php
-      $foundWord = findWord($randomWord, $word_list_en, $word_list_es);
-      if (!is_null($foundWord)) {
+      $translatedWord = translateWord($randomWord, $word_list_en, $word_list_es);
+      if (!is_null($translatedWord)) {
         echo '<p>Word provided: <strong>' . $randomWord . '</strong></p>';
-        echo '<p> Word translated in ' . $foundWord[0] . ': <strong>' . $foundWord[1] . '</strong></p>';
+        echo '<p> Word translated in ' . $translatedWord[0] . ': <strong>' . $translatedWord[1] . '</strong></p>';
       }
       ?>
     </div>
