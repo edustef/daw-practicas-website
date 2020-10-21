@@ -18,6 +18,7 @@
     'spanishWordError' => ''
   );
 
+  $querySearch = '';
   $newEnglishWord = '';
   $newSpanishWord = '';
 
@@ -27,10 +28,10 @@
   } else {
     // add words to the lists if they don't exist already 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new-english-word']) && isset($_POST['new-spanish-word'])) {
-      $newEnglishWord = $_POST['new-english-word'];
-      $newSpanishWord = $_POST['new-spanish-word'];
+      $newEnglishWord = htmlspecialchars($_POST['new-english-word']);
+      $newSpanishWord = htmlspecialchars($_POST['new-spanish-word']);
       // clear the word in search input
-      $_GET['word'] = null;
+      $querySearch = '';
 
       $spanishWordExists = findWord($newSpanishWord, $_SESSION['dict']);
       $englishWordExists = findWord($newEnglishWord, $_SESSION['dict']);
@@ -54,6 +55,8 @@
       if ($errors['englishWordError'] == '' && $errors['spanishWordError'] == '') {
         $_SESSION['dict'][$newEnglishWord] = $newSpanishWord;
       }
+    } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['word'])) {
+      $querySearch = htmlspecialchars($_GET['word']);
     }
   }
 
@@ -63,31 +66,32 @@
       <h2 class="title is-4">English - Spanish Translator</h2>
 
       <!-- SEARCH FORM -->
-      <form class="columns" action="" method="GET">
-        <div class="column is-2 field is-mobile">
-          <div class="control has-icons-left has-icons-right">
+      <form class="" action="" method="GET">
+        <div class="field has-addons">
+          <div class="control has-icons-left">
             <?php
-            echo '<input required name="word" value="' . (isset($_GET['word']) ? $_GET['word'] : '') . '" class="input" type="text" placeholder="Search">';
+            echo '<input required name="word" value="' . $querySearch . '" class="input" type="text" placeholder="Search">';
             ?>
             <span class="icon is-small is-left">
               <i class="fas fa-search"></i>
             </span>
           </div>
+          <div class="control">
+            <button class="button is-primary" type="submit">Translate</button>
+          </div>
         </div>
-        <div class="column">
-          <button class="button is-primary" type="submit">Translate</button>
-        </div>
+
       </form>
 
       <!-- NOTIFICATIONS -->
       <div>
         <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['word'])) {
-          $translatedWord = translateWord($_GET['word'], array_keys($_SESSION['dict']), array_values($_SESSION['dict']));
+        if ($querySearch != '') {
+          $translatedWord = translateWord($querySearch, array_keys($_SESSION['dict']), array_values($_SESSION['dict']));
           if (!is_null($translatedWord)) {
             echo '<div class="notification is-success is-light" style="display:flex; align-items:center">';
             echo '  <span class="icon is-size-4 mr-2"><i class="fas fa-check"></i></span>';
-            echo '<span> Word <strong>' . $translatedWord[1] . '</strong> found in ' . $translatedWord[0] . ' dictionary for the word <strong>' . $_GET['word'] . '</strong>.</span>';
+            echo '<span> Word <strong>' . $translatedWord[1] . '</strong> found in ' . $translatedWord[0] . ' dictionary for the word <strong>' . $querySearch . '</strong>.</span>';
             echo '</div>';
           } else {
             echo '<div class="message is-warning is-light" style="max-width: 350px">';
@@ -126,7 +130,7 @@
             <form action="" method="POST">
               <h2 class="title is-4">Add a new word</h2>
               <div class="field">
-                <label class="label">Word in english</label>
+                <label class="label">English word: </label>
                 <div class="control has-icons-right">
                   <?php
                   $isDanger = $errors['englishWordError'] != '' ? 'is-danger' : '';
@@ -144,7 +148,7 @@
                 <p class="help is-danger"><?= $errors['englishWordError'] ?></p>
               </div>
               <div class="field">
-                <label class="label">Word in spanish</label>
+                <label class="label">Spanish word:</label>
                 <div class="control has-icons-right">
                   <?php
                   $isDanger = $errors['spanishWordError'] != '' ? 'is-danger' : '';
