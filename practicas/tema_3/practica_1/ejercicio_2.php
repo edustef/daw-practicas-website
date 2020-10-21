@@ -22,7 +22,6 @@
   }
   ?>
   <div class="content is-medium">
-    <p>Result: </p>
     <div class="box">
       <form action="" method="POST">
         <?php

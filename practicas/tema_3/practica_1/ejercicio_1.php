@@ -43,7 +43,6 @@
 
   ?>
   <div class="content is-medium">
-    <p>Result: </p>
     <div class="box">
       <div class="tile is-ancestor">
         <div class="tile is-parent is-vertical is-4">
