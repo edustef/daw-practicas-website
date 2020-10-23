@@ -6,6 +6,7 @@
   ?>
   <p class="mb-6 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
+  <div class="notification is-warning is-light"><strong>You need to refresh again after submiting!</strong></div>
   <?php
   include('ejercicio_4/ads.php');
   include('ejercicio_4/tags.php');
@@ -28,28 +29,27 @@
   }
 
   // read userPreferences from cookie only if it exists and if the request method is not a get
-  if (isset($_COOKIE['userPreferences']) && $_SERVER['REQUEST_METHOD'] != 'POST') {
+  if (isset($_COOKIE['userPreferences'])) {
     $userPreferences = json_decode($_COOKIE['userPreferences'], true);
-    $ad = getPersonalizedAd($ads, $userPreferences);
-    $ad['imgUrl'] = createImgUrl($ad['desc']);
-    echo '<pre>' . print_r($userPreferences, true) . '</pre>';
+    if (count($userPreferences) > 0) {
+      $ad = getPersonalizedAd($ads, $userPreferences);
+    }
   }
-
 
   /**
    * This will return the ID of the best possible ad based by the number of tags in common
    */
-  function getPersonalizedAd($filteredAds, $userPreferences)
+  function getPersonalizedAd(&$ads, $userPreferences)
   {
     // filter ads that don't match with any category
     // *note* the 'use' ads a closure to the anonymous function. - https://stackoverflow.com/questions/5482989/php-array-filter-with-arguments 
-    array_filter($filteredAds, function ($ad) use ($userPreferences) {
-      // convert the object back into an array
+    $filteredAds = array_filter($ads, function ($ad) use ($userPreferences) {
       $matchedCount = 0;
-      // because we use category only for creating the form fileds and not in the actual ads we combine everything as tags
+      // because we use category only for creating the form fields and not in the actual ads we combine them together with tags
+      // userPreferences is also a multidimensional array so we spread the values with '...' and merge them after that we merge again with the keys
       $flatUserPreferences = array_merge(array_keys($userPreferences), array_merge(...array_values($userPreferences)));
 
-      // counts how many tags from user preferences have been found in the add
+      // counts how many tags from user preferences have been found in the ad
       foreach ($flatUserPreferences as $tag) {
         if (in_array($tag, $ad['tags'])) {
           $matchedCount++;
@@ -57,13 +57,13 @@
       }
 
       // add it as a potential ad if there are more than 2 items in common
-      echo $matchedCount;
-      return $matchedCount > 2;
+      return ($matchedCount >= 2);
     });
-    // now return a random one from selected
 
-    echo '<pre>' . print_r($filteredAds, true) . '</pre>';
-    return $ads[rand(0, count($filteredAds) - 1)];
+    // reset the indexes
+    $filteredAds = array_values($filteredAds);
+    // now return a random one from the filtered array
+    return $filteredAds[rand(0, count($filteredAds) - 1)];
   }
 
   function getRandomAd(&$ads)
@@ -73,16 +73,15 @@
     return $ad;
   }
 
-  function isCategoryLiked($ad)
-  {
-  }
-
   function createImgUrl($desc)
   {
     return 'https://dummyimage.com/400x600/ddd/000.png&text=' . preg_replace('/\s+/', '+', $desc);
   }
+
+  // create the image for the ad
+  $ad['imgUrl'] = createImgUrl($ad['desc']);
   ?>
-  <div class="columns mr-4">
+  <div class="columns">
     <div class="column is-9">
       <article class="p-6 has-background-primary-light">
         <p class="title">Personalize your ads</p>

@@ -10,12 +10,11 @@ $ads = array(
   ),
   array(
     'desc' => 'Chinese food ad',
-    'category' => 'food',
-    'tags' => array('chinese', 'fast-food')
+    'tags' => array('chinese', 'fast-food', 'food')
   ),
   array(
     'desc' => 'Foster Hollywood ad',
-    'tags' => array('hamburgesa', 'fast-food')
+    'tags' => array('hamburgesa', 'fast-food', 'food')
   ),
   array(
     'desc' => 'Pescado shop ad',
