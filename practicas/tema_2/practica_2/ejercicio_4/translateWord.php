@@ -6,14 +6,13 @@
  */
 function translateWord($randomWord, $word_list_en, $word_list_es)
 {
-  include_once('getIndexOfWord.php');
 
-  $wordIndex = getIndexOfWord($randomWord, $word_list_en);
-  if ($wordIndex != -1) {
+  $wordIndex = array_search($randomWord, $word_list_en);
+  if ($wordIndex != false) {
     return ['spanish', $word_list_es[$wordIndex]];
   } else {
-    $wordIndex = getIndexOfWord($randomWord, $word_list_es);
-    if ($wordIndex != -1) {
+    $wordIndex = array_search($randomWord, $word_list_es);
+    if ($wordIndex != false) {
       return ['english', $word_list_en[$wordIndex]];
     }
   }

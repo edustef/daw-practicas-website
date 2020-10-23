@@ -8,7 +8,6 @@
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
   include('../../tema_2/practica_2/ejercicio_4/dictionary.php');
-  include('../../tema_2/practica_2/ejercicio_4/getIndexOfWord.php');
   include('../../tema_2/practica_2/ejercicio_4/translateWord.php');
   include('ejercicio_3/findWord.php');
 
@@ -19,6 +18,8 @@
   );
 
   $querySearch = '';
+  $translatedWord = '';
+  $wordToDelete = '';
   $newEnglishWord = '';
   $newSpanishWord = '';
 
@@ -27,9 +28,9 @@
     $_SESSION['dict'] = array_combine($word_list_en, $word_list_es);
   } else {
     // add words to the lists if they don't exist already 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new-english-word']) && isset($_POST['new-spanish-word'])) {
-      $newEnglishWord = htmlspecialchars($_POST['new-english-word']);
-      $newSpanishWord = htmlspecialchars($_POST['new-spanish-word']);
+    if (isset($_POST['new-english-word']) && isset($_POST['new-spanish-word'])) {
+      $newEnglishWord = $_POST['new-english-word'];
+      $newSpanishWord = $_POST['new-spanish-word'];
       // clear the word in search input
       $querySearch = '';
 
@@ -37,27 +38,43 @@
       $englishWordExists = findWord($newEnglishWord, $_SESSION['dict']);
 
       if (!is_null($spanishWordExists)) {
-        if ($spanishWordExists[0] == 'spanish') {
-          $errors['spanishWordError'] = 'The word <strong>' . $spanishWordExists[1] . '</strong> was found in the spanish dictionary';
-        } else {
-          $errors['spanishWordError'] = 'The word <strong>' . $spanishWordExists[1] . '</strong> was found in the english dictionary';
-        }
+        $errors['spanishWordError'] = 'The word <strong>' . $spanishWordExists[1] . '</strong> was found in the ' . $spanishWordExists[0] . ' dictionary';
       }
 
       if (!is_null($englishWordExists)) {
-        if ($englishWordExists[0] == 'english') {
-          $errors['englishWordError'] = 'The word <strong>' . $englishWordExists[1] . '</strong> was found in the english dictionary';
-        } else {
-          $errors['englishWordError'] = 'The word <strong>' . $englishWordExists[1] . '</strong> was found in the spanish dictionary';
-        }
+        $errors['englishWordError'] = 'The word <strong>' . $englishWordExists[1] . '</strong> was found in the ' . $englishWordExists[0] . ' dictionary';
       }
 
-      if ($errors['englishWordError'] == '' && $errors['spanishWordError'] == '') {
+      // if the errors are empty that means no word has been found for neither
+      echo anyErrors($errors);
+      if (!anyErrors($errors)) {
         $_SESSION['dict'][$newEnglishWord] = $newSpanishWord;
       }
-    } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['word'])) {
-      $querySearch = htmlspecialchars($_GET['word']);
+    } elseif (isset($_GET['word'])) {
+      $querySearch = $_GET['word'];
+      $translatedWord = translateWord($querySearch, array_keys($_SESSION['dict']), array_values($_SESSION['dict']));
+    } elseif (isset($_GET['wordToDelete'])) {
+      $querySearch = '';
+      $wordToDelete = $_GET['wordToDelete'];
+      if (isset($_SESSION[$wordToDelete])) {
+        unset($_SESSION['dict'][$wordToDelete]);
+      } else {
+        $keyFound = array_search($wordToDelete, $_SESSION['dict']);
+        if ($keyFound != false) {
+          unset($_SESSION['dict'][$keyFound]);
+        }
+      }
     }
+  }
+
+
+  function anyErrors($errors)
+  {
+    if ($errors['englishWordError'] == '' && $errors['spanishWordError'] == '') {
+      return false;
+    }
+
+    return true;
   }
 
   ?>
@@ -87,11 +104,16 @@
       <div>
         <?php
         if ($querySearch != '') {
-          $translatedWord = translateWord($querySearch, array_keys($_SESSION['dict']), array_values($_SESSION['dict']));
-          if (!is_null($translatedWord)) {
+          if ($translatedWord != '') {
             echo '<div class="notification is-success is-light" style="display:flex; align-items:center">';
             echo '  <span class="icon is-size-4 mr-2"><i class="fas fa-check"></i></span>';
             echo '<span> Word <strong>' . $translatedWord[1] . '</strong> found in ' . $translatedWord[0] . ' dictionary for the word <strong>' . $querySearch . '</strong>.</span>';
+            echo '<a href="?wordToDelete=' . $translatedWord[1] . '" class="ml-2 button is-small is-danger is-outlined is-rounded">';
+            echo '  <span>Delete</span>';
+            echo '  <span class="icon">';
+            echo '    <i class="fas fa-trash-alt"></i>';
+            echo '  </span>';
+            echo '</a>';
             echo '</div>';
           } else {
             echo '<div class="message is-warning is-light" style="max-width: 350px">';
@@ -106,10 +128,15 @@
             echo '  </div>';
             echo '</div>';
           }
-        } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($newEnglishWord)) {
+        } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && !anyErrors($errors)) {
           echo '<div class="notification is-success is-light" style="display:flex; align-items:center">';
           echo '  <span class="icon is-size-4 mr-2"><i class="fas fa-check"></i></span>';
           echo '  <span>The new english word <strong>' . $newEnglishWord . '</strong> with translation in spanish <strong>' . $newSpanishWord . '</strong> was added to the dictionary.</span>';
+          echo '</div>';
+        } elseif ($wordToDelete != '') {
+          echo '<div class="notification is-success is-light" style="display:flex; align-items:center">';
+          echo '  <span class="icon is-size-4 mr-2"><i class="fas fa-check"></i></span>';
+          echo '  <span>The word <strong>' . $wordToDelete . '</strong> and it\'s translation has been removed from the dictionary.</span>';
           echo '</div>';
         } else {
           echo '<div class="notification is-info is-light" style="display:flex; align-items:center">';
@@ -123,7 +150,7 @@
       </div>
 
       <!-- MODAL ADD NEW WORD FORM -->
-      <div id="add-word-modal" class="modal <?= ($errors['englishWordError'] != '' || $errors['spanishWordError'] != '' ? 'is-active' : '') ?>">
+      <div id="add-word-modal" class="modal <?= (anyErrors($errors) ? 'is-active' : '') ?>">
         <div class="modal-background"></div>
         <div class="modal-content">
           <div class="box">
@@ -134,7 +161,7 @@
                 <div class="control has-icons-right">
                   <?php
                   $isDanger = $errors['englishWordError'] != '' ? 'is-danger' : '';
-                  $englishValue = $isDanger != '' ? $newEnglishWord : '';
+                  $englishValue = anyErrors($errors) ? $newEnglishWord : '';
                   ?>
                   <input required name="new-english-word" value="<?= $englishValue ?>" class="input <?= $isDanger ?>" type="text" placeholder="English word">
                   <?php
@@ -152,7 +179,7 @@
                 <div class="control has-icons-right">
                   <?php
                   $isDanger = $errors['spanishWordError'] != '' ? 'is-danger' : '';
-                  $spanishValue = $isDanger != '' ? $newSpanishWord : '';
+                  $spanishValue = anyErrors($errors) ? $newSpanishWord : '';
                   ?>
                   <input required name="new-spanish-word" value="<?= $spanishValue ?>" class="input <?= $isDanger ?>" type="text" placeholder="Spanish word">
                   <?php
