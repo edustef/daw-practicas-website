@@ -3,7 +3,7 @@
   $activePageFormated = explode(".", str_replace("_", " ", $activePage))[0];
   $activePageArr = explode("/", $activePageFormated);
   ?>
-  <p class="mb-6 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
+  <p class="mb-2 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
   $cadena1 = "Hola a todo el mundo ";
