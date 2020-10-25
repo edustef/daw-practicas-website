@@ -1,17 +1,23 @@
 let navbar = document.getElementById("navbar");
 let fakeNavbar = document.getElementById("fake-navbar");
-let spacer = document.getElementById("spacer");
 let toggleBtn = document.getElementById("toggle-navbar");
+let mediaQueryDesktop = window.matchMedia(
+  "only screen and (min-width: 1024px)"
+);
 
 let isNavbarClosed = sessionStorage.getItem("isNavbarClosed");
 
-// check if session value exists at all otherwise create it
-if (isNavbarClosed == null) {
-  sessionStorage.setItem("isNavbarClosed", false);
-  isNavbarClosed = false;
+if (!mediaQueryDesktop.matches) {
+  sessionStorage.setItem("isNavbarClosed", true);
+  isNavbarClosed = true;
 } else {
-  // if it exists check if the value is true or false
-  isNavbarClosed = isNavbarClosed == "true";
+  if (isNavbarClosed == null) {
+    sessionStorage.setItem("isNavbarClosed", false);
+    isNavbarClosed = false;
+  } else {
+    // if it exists check if the value is true or false
+    isNavbarClosed = isNavbarClosed == "true";
+  }
 }
 
 // toggle the navbar based on session on first time visit
@@ -21,8 +27,7 @@ if (isNavbarClosed) {
   openNavbar(toggleBtn.querySelector(".icon i"));
 }
 
-let mediaQuery = window.matchMedia("(min-width: 1024px)");
-mediaQuery.addEventListener("change", (e) => {
+mediaQueryDesktop.addEventListener("change", (e) => {
   if (e.matches) {
     openNavbar(toggleBtn.querySelector(".icon svg"));
   } else {
@@ -44,16 +49,29 @@ document.getElementById("toggle-navbar").addEventListener("click", () => {
 function openNavbar(iconEl) {
   navbar.classList.remove("is-hidden");
   fakeNavbar.classList.remove("is-hidden");
-  spacer.classList.add("is-hidden");
   iconEl.classList.add("fa-times");
   iconEl.classList.remove("fa-bars");
+  if (mediaQueryDesktop.matches) {
+    document
+      .getElementById("main-container")
+      .classList.remove("is-fullview-width");
+  } else {
+    document
+      .getElementById("main-container")
+      .classList.add("is-fullview-width");
+  }
   sessionStorage.setItem("isNavbarClosed", false);
 }
 
 function closeNavbar(iconEl) {
   navbar.classList.add("is-hidden");
   fakeNavbar.classList.add("is-hidden");
-  spacer.classList.remove("is-hidden");
+  if (mediaQueryDesktop.matches) {
+    document
+      .getElementById("main-container")
+      .classList.add("is-fullview-width");
+  }
+  document.getElementById("main-container").classList.add("is-fullview-width");
   iconEl.classList.remove("fa-times");
   iconEl.classList.add("fa-bars");
   sessionStorage.setItem("isNavbarClosed", true);

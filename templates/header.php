@@ -16,12 +16,21 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
    <link rel="stylesheet" property="stylesheet" href="ejercicio_5/bulma-calendar-extension/css/bulma-calendar.min.css">
    <style>
+     body {
+       overflow: hidden;
+     }
+
      .is-hidden {
        display: none;
      }
 
+     .is-fullview-width {
+       min-width: 100vw;
+     }
+
      .side-navbar {
-       height: 100vh;
+       min-height: 100vh;
+       height: 100%;
        overflow-y: auto;
        min-width: 18rem;
      }
@@ -81,8 +90,7 @@
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
      <div id="fake-navbar" class="side-navbar is-2 column section"></div>
-     <div id="spacer" class="is-hidden" style="width: 24px"></div>
-     <div id="main-container" class="column section has-background-light">
+     <div id="main-container" class="is-fullview-width column section has-background-light">
        <button class="button has-background-dark mb-4" id="toggle-navbar">
          <span class="icon has-text-white"><i class="fas fa-bars"></i></span>
        </button>
