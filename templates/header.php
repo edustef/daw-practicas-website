@@ -7,13 +7,14 @@
   $phpSelfArr = explode("/", $_SERVER["PHP_SELF"]);
   $activePage =  implode("/", array_slice($phpSelfArr, count($phpSelfArr) - 3, 3));
   ?>
- <html>
+ <html lang="en">
 
  <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+   <link rel="stylesheet" property="stylesheet" href="ejercicio_5/bulma-calendar-extension/css/bulma-calendar.min.css">
    <style>
      .side-navbar {
        height: 100vh;
