@@ -9,11 +9,8 @@
   <?php
 
   ?>
-  <div class="content is-medium">
-    <p>Result: </p>
-    <div class="box">
+  <div class="box">
 
-    </div>
   </div>
 </div>
 <?php include_once(__DIR__ . "/../../../templates/footer.php") ?>
