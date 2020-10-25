@@ -15,10 +15,14 @@
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
    <style>
+     .is-hidden {
+       display: none;
+     }
+
      .side-navbar {
        height: 100vh;
        overflow-y: auto;
-       min-width: 15rem;
+       min-width: 18rem;
      }
 
      #navbar {
@@ -34,7 +38,7 @@
 
  <body>
    <div class="columns is-mobile">
-     <navbar id="navbar" class="side-navbar column is-2 section">
+     <navbar id="navbar" class="side-navbar column is-2 section has-background-white">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
         foreach ($temas as $tema) {
@@ -75,5 +79,9 @@
         ?>
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
-     <div class="side-navbar is-2 column section"></div>
+     <div id="fake-navbar" class="side-navbar is-2 column section"></div>
+     <div id="spacer" class="is-hidden" style="width: 24px"></div>
      <div id="main-container" class="column section has-background-light">
+       <button class="button has-background-dark mb-4" id="toggle-navbar">
+         <span class="icon has-text-white"><i class="fas fa-bars"></i></span>
+       </button>
