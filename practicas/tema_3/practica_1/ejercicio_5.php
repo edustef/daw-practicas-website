@@ -18,7 +18,7 @@
   // echo '<pre>' . print_r($_SESSION['tasks'], true) . '</pre>';
   ?>
   <div class="box">
-    <div class="level">
+    <div class="level is-mobile">
       <div class="level-left">
         <h2 class="title is-4">Tasks</h2>
       </div>

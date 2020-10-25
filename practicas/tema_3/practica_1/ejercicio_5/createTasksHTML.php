@@ -4,7 +4,7 @@ function createTasksHTML()
   $output = '';
 
   if (count($_SESSION['tasks']) > 0) {
-    foreach (array_reverse($_SESSION['tasks']) as $key => $task) {
+    foreach (array_reverse($_SESSION['tasks'], true) as $key => $task) {
       $taskHTML = '';
       $desc = $task['desc'];
       $taskPassedStyle = array(
@@ -29,23 +29,23 @@ function createTasksHTML()
       }
 
       $taskHTML = '
-      <div class="p-2 level has-background-light" style="border-bottom:1px solid #eee ;max-width: 900px;">
-        <div class="level-left" style="' . $taskPassedStyle['style'] . '">
+      <div class="p-2 level has-background-light" style="border-bottom:1px solid #eee ;max-width: 900px">
+        <div class="level-left" style="min-width:0;flex-shrink:unset;' . $taskPassedStyle['style'] . '">
           <div class="level-item">
             <span class="icon ' . $priorityStyle . '">
               <i class="fas fa-circle"></i>
             </span>
           </div>
-          <div class="level-item" style="max-width:600px;">
-          ' . $desc . '
+          <div class="level-item" style="max-width:700px;min-width:0;flex-shrink:unset;white-space:wrap">
+            ' . $desc . '
           </div>
         </div>
         <div class="level-right">
-          <div class="level-item has-text-grey is-size-7">
+          <div class="level-item has-text-grey is-size-7" >
           ' . $dueDateFormated . '
           </div>
           <div class="level-item">
-            <button data-id=' . $key . ' class="delete-task ml-6 button is-danger is-outlined">
+            <button data-id=' . $key . ' class="delete-task button is-danger is-outlined">
               <span class="icon">
                 <i class="fas fa-trash"></i>
               </span>
