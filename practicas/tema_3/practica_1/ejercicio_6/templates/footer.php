@@ -25,8 +25,7 @@
   });
 </script>
 <script src="utils/fetchData.js"></script>
-<script src="products/products.js"></script>
-<script src="cart/cart.js"></script>
+<script src="script.js"></script>
 </body>
 
 </html>

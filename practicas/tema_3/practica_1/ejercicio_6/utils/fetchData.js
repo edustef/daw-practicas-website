@@ -1,11 +1,14 @@
 /**
  * Fetches HTML genereted text from the server
  * @param {string} action Action to perform before getting the data back
- * @param {FormData} formData Data you want to send
- * @return {string} Returns the data in HTML form or
+ * @param {FormData} formData Data you want to send - default empty FormData
+ * @return {string} Returns the data in HTML form or a string with 'error'
  */
-async function fetchData(action, formData, url) {
-  formData.append("action", action);
+async function fetchData({ actionData, formData, url }) {
+  if (!formData) {
+    formData = new FormData();
+  }
+  formData.append(actionData.name, actionData.action);
 
   try {
     let res = await fetch(url, {

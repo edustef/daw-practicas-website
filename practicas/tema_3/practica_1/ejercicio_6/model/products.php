@@ -1,5 +1,4 @@
 <?php
-
 $products = array(
   array(
     'id' => 1,
@@ -69,6 +68,6 @@ $products = array(
     'title' => 'Product 10',
     'desc' => 'Long description about the product 10. It is the greatest product ever',
     'imgUrl' => 'https://dummyimage.com/400x600/ddd/000.png&text=Product+10',
-    'price' =>  100
+    'price' => 100
   ),
 );

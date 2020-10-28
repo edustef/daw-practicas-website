@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top" lang="en">
 
@@ -40,7 +39,7 @@
                   <i class="fas fa-shopping-cart"></i>
                 </span>
                 <span>
-                  <span id="cart-num-of-items">0</span>
+                  <span id="cart-num-items">0</span>
                   Items
                 </span>
               </a>

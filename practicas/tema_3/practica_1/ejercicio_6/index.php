@@ -1,7 +1,5 @@
 <?php
-include('header.php');
-include('products/products.php');
-include('products/getProducts.php');
+include('./templates/header.php');
 ?>
 <section class="hero is-primary is-bold">
   <div class="hero-body">
@@ -16,8 +14,11 @@ include('products/getProducts.php');
   </div>
 </section>
 <section class="section">
-  <div class="container">
-    <?= getProducts($products) ?>
-  </div>
+  <div id="products-container" class="container"></div>
 </section>
-<?php include('footer.php') ?>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    getProducts();
+  })
+</script>
+<?php include('./templates/footer.php') ?>

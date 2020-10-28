@@ -1,4 +1,19 @@
 <?php
+session_start();
+
+include('../model/products.php');
+
+if (isset($_POST['productAction'])) {
+  $res = 'error';
+  switch ($_POST['productAction']) {
+    case 'getProducts':
+      $res = getProducts($products);
+      break;
+  }
+
+  echo $res;
+}
+
 function getProducts($products)
 {
   $output = '';
@@ -20,7 +35,7 @@ function getProducts($products)
         </div>
       </div>
       <footer class="card-footer">
-        <a id="add-product" data-id="' . $product['id'] . '" href="#" class="card-footer-item">
+        <a data-id="' . $product['id'] . '" class="add-product card-footer-item">
           <span class="icon mr-2">
             <i class="fas fa-cart-plus"></i>
           </span>
