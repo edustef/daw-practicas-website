@@ -91,6 +91,7 @@
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
      <div id="fake-navbar" class="side-navbar is-2 column section"></div>
      <div id="main-container" class="is-fullview-width column section has-background-light">
-       <button class="button has-background-dark mb-4" id="toggle-navbar">
+       <button class="button has-background-dark mb-4" id="toggle-navbar" style="position: fixed;">
          <span class="icon has-text-white"><i class="fas fa-bars"></i></span>
        </button>
+       <div style="height:4rem"></div>

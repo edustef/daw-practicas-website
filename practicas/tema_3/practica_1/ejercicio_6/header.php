@@ -1,5 +1,6 @@
+<?php session_start() ?>
 <!DOCTYPE html>
-<html lang="en">
+<html class="has-navbar-fixed-top" lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -9,7 +10,7 @@
 </head>
 
 <body>
-  <nav class="navbar is-dark">
+  <nav class="navbar is-dark is-fixed-top">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="index.php">
@@ -39,7 +40,8 @@
                   <i class="fas fa-shopping-cart"></i>
                 </span>
                 <span>
-                  0 Items
+                  <span id="cart-num-of-items">0</span>
+                  Items
                 </span>
               </a>
             </p>

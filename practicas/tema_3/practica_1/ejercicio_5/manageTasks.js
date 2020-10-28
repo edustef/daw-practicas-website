@@ -10,7 +10,7 @@ document.getElementById("add-task").addEventListener("submit", async (e) => {
   taskInput.value = "";
 });
 
-document.getElementById("clear-tasks").addEventListener("click", async (e) => {
+document.getElementById("clear-tasks").addEventListener("click", async () => {
   let data = await fetchData("clearTasks", new FormData());
 
   taskList.innerHTML = data;
