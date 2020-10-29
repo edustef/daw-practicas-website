@@ -20,7 +20,6 @@ if (isset($_POST['cartAction'])) {
     case 'getCartProducts':
       if (count($_SESSION['cartProducts']) > 0) {
         $res = getCartProducts();
-        $res .= '<p><pre>' . print_r($_SESSION['cartProducts'], true) . '</pre></p>';
       } else {
         $res = '<p class="content is-medium has-font-weight-bold has-text-grey-light">There are no products in your cart</p>';
       }
