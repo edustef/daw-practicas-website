@@ -20,7 +20,6 @@ taskList.addEventListener(
   "click",
   async (e) => {
     if (e.target.closest(".delete-task")) {
-      console.log(e.target.closest(".delete-task"));
       let formData = new FormData();
       formData.append("id", e.target.closest(".delete-task").dataset.id);
       let data = await fetchData("deleteTask", formData);

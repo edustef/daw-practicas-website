@@ -16,9 +16,5 @@ include('./templates/header.php');
 <section class="section">
   <div id="products-container" class="container"></div>
 </section>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    getProducts();
-  })
-</script>
+<script src="index.js"></script>
 <?php include('./templates/footer.php') ?>

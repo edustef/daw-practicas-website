@@ -1,5 +1,6 @@
 <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 <script>
+  // Script for hamburger navbar
   document.addEventListener('DOMContentLoaded', () => {
 
     // Get all "navbar-burger" elements
@@ -24,8 +25,8 @@
     }
   });
 </script>
-<script src="utils/fetchData.js"></script>
 <script src="script.js"></script>
+<script src="utils/fetchData.js"></script>
 </body>
 
 </html>
