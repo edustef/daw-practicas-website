@@ -17,7 +17,7 @@
   <div class="box">
     <div class="columns">
       <div class="column is-narrow">
-        <div><button class="button is-dark is-outlined mb-6">Start new game</button></div>
+        <div><button id="new-game-btn" class="button is-dark is-outlined mb-6">Start new game</button></div>
         <!-- Generator: Adobe Illustrator 24.1.3, SVG Export Plug-In  -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="400" height="400" viewBox="0 0 641.4 953.5" style="overflow:visible;enable-background:new 0 0 641.4 953.5;" xml:space="preserve">
           <style type="text/css">
@@ -149,6 +149,6 @@
     </div>
   </div>
 </div>
-<script>
+<script src="script.js">
 </script>
 <?php include_once(__DIR__ . "/../../../templates/footer.php") ?>
