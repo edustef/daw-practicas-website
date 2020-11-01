@@ -12,10 +12,8 @@ if (isset($_POST['cartAction'])) {
   $res = 'error';
   switch ($_POST['cartAction']) {
     case 'addCartProduct':
-      if (isset($_POST['id'])) {
-        addCartProduct($_POST['id'], $products);
-        $res = 'ok';
-      }
+      addCartProduct($_POST['id'], $products);
+      $res = 'ok';
       break;
     case 'getCartProducts':
       if (count($_SESSION['cartProducts']) > 0) {
@@ -49,14 +47,10 @@ function addCartProduct($id, $products)
   if ($productInCartKey !== false) {
     $_SESSION['cartProducts'][$productInCartKey]['quantity'] += 1;
   } else {
-    $_SESSION['cartProducts'][] = $product;
-    // echo '<pre>' . print_r($productInCart, true) . '</pre>';
+    $product['quantity'] = 1;
+    $product['imgUrl'] = 'https://dummyimage.com/128x128/ddd/000.png&text=Product+' . $product['id'];
 
-    $lastKey = array_key_last($_SESSION['cartProducts']);
-    // changes the img size so it shows properly on cart
-    $_SESSION['cartProducts'][$lastKey]['imgUrl'] = 'https://dummyimage.com/128x128/ddd/000.png&text=Product+' . $_SESSION['cartProducts'][$lastKey]['id'];
-    // intialize quantity;
-    $_SESSION['cartProducts'][$lastKey]['quantity'] = 1;
+    $_SESSION['cartProducts'][] = $product;
   }
 }
 
@@ -77,7 +71,11 @@ function changeQuantityCartProduct($id, $quantity)
   $productInCartKey = array_search($id, array_column($_SESSION['cartProducts'], 'id'));
 
   if ($productInCartKey !== false) {
-    $_SESSION['cartProducts'][$productInCartKey]['quantity'] = $quantity;
+    if (is_numeric($quantity)) {
+      $_SESSION['cartProducts'][$productInCartKey]['quantity'] = $quantity;
+    } else {
+      $_SESSION['cartProducts'][$productInCartKey]['quantity'] = 0;
+    }
   }
 }
 
