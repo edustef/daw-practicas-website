@@ -8,7 +8,6 @@
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
 
   <?php
-  // session_destroy();
   include('ejercicio_5/createTasksHTML.php');
 
   if (!isset($_SESSION['tasks'])) {

@@ -1,6 +1,5 @@
 <?php
 session_start();
-// session_destroy();
 include('../model/products.php');
 
 if (!isset($_SESSION['cartProducts'])) {

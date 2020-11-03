@@ -11,7 +11,6 @@
   include('../../tema_2/practica_2/ejercicio_4/translateWord.php');
   include('ejercicio_3/findWord.php');
 
-  // session_destroy();
   $errors = array(
     'englishWordError' => '',
     'spanishWordError' => ''

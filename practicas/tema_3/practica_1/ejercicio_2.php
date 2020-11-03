@@ -7,7 +7,6 @@
   <p class="mb-2 is-italic"><?= str_replace("/", "  /  ", $activePageFormated) ?></p>
   <h1 class="title"><?= ucfirst($activePageArr[2]) ?></h1>
   <?php
-  // session_unset();
   include_once('ejercicio_2/asignaturas.php');
   include_once('ejercicio_2/displayVote.php');
 
