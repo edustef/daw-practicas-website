@@ -22,7 +22,7 @@
       <div class="column is-narrow">
         <div><button id="new-game-btn" class="button is-dark is-outlined mb-6">Start new game</button></div>
         <div class="level">
-          <div id="lost" class="level-item is-size-1 has-text-danger has-text-weight-bold" style="height: 4rem">
+          <div id="status" class="level-item is-size-1 has-text-danger has-text-weight-bold" style="height: 4rem">
           </div>
         </div>
         <!-- Generator: Adobe Illustrator 24.1.3, SVG Export Plug-In  -->

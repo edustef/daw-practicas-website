@@ -7,6 +7,7 @@ async function newGame() {
     .getElementById("letters-container")
     .addEventListener("click", checkLetterInPuzzledWord);
 
+  document.getElementById("status").innerHTML = "";
   document.getElementById("fails").textContent = 0;
   let letterBtns = document.getElementById("letters-container").children;
 
@@ -34,13 +35,14 @@ async function getPuzzledWord() {
   let word = await res.text();
 
   let letterBtns = document.getElementById("letters-container").children;
+
   // add disable property for letters that exist in the word already
   for (let i = 0; i < letterBtns.length; i++) {
     if (word.includes(letterBtns[i].textContent.toLowerCase())) {
-      console.log(letterBtns[i]);
       letterBtns[i].disabled = true;
     }
   }
+
   document.getElementById(
     "puzzled-word"
   ).textContent = word.toUpperCase().split("").join(" ");
@@ -48,24 +50,53 @@ async function getPuzzledWord() {
 
 async function checkLetterInPuzzledWord(e) {
   let btn = e.target.closest("button");
+
   if (btn) {
     let formData = new FormData();
     formData.append("action", "checkLetterInPuzzledWord");
     formData.append("letter", btn.textContent);
+
     let res = await fetch("hangman/hangmanController.php", {
       method: "POST",
       body: formData,
     });
-
     let data = await res.text();
-    console.log(data);
-    if (data != "letterNotFound") {
+
+    if (data == "letterNotFound") {
+      let fails = await getFails();
+      let bodyParts = document.querySelectorAll(".body-part");
+
+      bodyParts.forEach((bodyPart) => {
+        if (bodyPart.dataset.order == fails) {
+          bodyPart.classList.remove("is-invisible");
+        }
+      });
+
+      document.getElementById("fails").textContent = fails;
+
+      if (fails == 6) {
+        document.getElementById("status").innerHTML =
+          '<p class="has-text-danger">You Lost!</p>';
+        document
+          .getElementById("letters-container")
+          .removeEventListener("click", checkLetterInPuzzledWord);
+      }
+    } else {
+      let hasWon = await checkHasWon();
+
       document.getElementById(
         "puzzled-word"
       ).textContent = data.toUpperCase().split("").join(" ");
       btn.disabled = true;
-    } else {
-      await getFails();
+
+      if (hasWon) {
+        document.getElementById("status").innerHTML =
+          '<p class="has-text-success">You Won!</p>';
+
+        document
+          .getElementById("letters-container")
+          .removeEventListener("click", checkLetterInPuzzledWord);
+      }
     }
   }
 }
@@ -80,20 +111,21 @@ async function getFails() {
 
   let data = await res.text();
 
+  return data;
   // show body part
-  let bodyParts = document.querySelectorAll(".body-part");
-  bodyParts.forEach((bodyPart) => {
-    if (bodyPart.dataset.order == data)
-      bodyPart.classList.remove("is-invisible");
-  });
-  document.getElementById("fails").textContent = data;
+}
 
-  if (data == 6) {
-    document.getElementById("lost").textContent = "You Lost!";
-    document
-      .getElementById("letters-container")
-      .removeEventListener("click", checkLetterInPuzzledWord);
-  }
+async function checkHasWon() {
+  let formData = new FormData();
+  formData.append("action", "checkHasWon");
+  let res = await fetch("hangman/hangmanController.php", {
+    method: "POST",
+    body: formData,
+  });
+
+  let data = await res.text();
+
+  return data;
 }
 
 async function debug() {
@@ -105,7 +137,6 @@ async function debug() {
   });
 
   let data = await res.text();
+
   document.getElementById("debug").innerHTML = data;
 }
-
-function showBodyPart() {}

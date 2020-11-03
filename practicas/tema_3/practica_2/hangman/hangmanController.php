@@ -27,10 +27,23 @@ if (isset($_POST['action'])) {
     case 'getFails':
       $res = $_SESSION['fails'];
       break;
+    case 'checkHasWon':
+      $res = $_SESSION['puzzledWord'] == $_SESSION['word'];
+      break;
     case 'debug':
-      $res = 'Use this debug values for easy testing: <br>';
-      $res .= 'Word: ' . $_SESSION['word'] . '<br>';
-      $res .= 'PuzzledWord: ' . $_SESSION['puzzledWord'] . '<br>';
+      $res = '
+        <div class="content mb-4"> 
+          <p>
+            Use this debug values for easy testing:
+          </p>
+          <p>
+            Word: ' . $_SESSION['word'] . '<br>
+          </p>
+          <p>
+            PuzzledWord: ' . $_SESSION['puzzledWord'] . '<br>
+          </p>
+        </div>
+      ';
       break;
   }
 
