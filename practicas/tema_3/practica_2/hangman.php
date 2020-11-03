@@ -10,14 +10,21 @@
 
   ?>
   <style>
-    .isInvisible {
+    .is-invisible {
       visibility: hidden;
     }
   </style>
+  <div id="debug">
+
+  </div>
   <div class="box">
     <div class="columns">
       <div class="column is-narrow">
         <div><button id="new-game-btn" class="button is-dark is-outlined mb-6">Start new game</button></div>
+        <div class="level">
+          <div id="lost" class="level-item is-size-1 has-text-danger has-text-weight-bold" style="height: 4rem">
+          </div>
+        </div>
         <!-- Generator: Adobe Illustrator 24.1.3, SVG Export Plug-In  -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="400" height="400" viewBox="0 0 641.4 953.5" style="overflow:visible;enable-background:new 0 0 641.4 953.5;" xml:space="preserve">
           <style type="text/css">
@@ -79,7 +86,7 @@
           <defs>
           </defs>
           <g id="pole_1_">
-            <path id="body" class="st0" d="M520.4,676c0,0-17.5-210.8,3.2-269.7" />
+            <path id="body" class="body-part st0" data-order=2 d="M520.4,676c0,0-17.5-210.8,3.2-269.7" />
             <path class="st1" d="M520.4,353.3c0,0-65.8,45.4-39.1,81.8c26.7,36.3,65.9,27.8,86.9,0C589.2,407.3,520.4,353.3,520.4,353.3z" />
             <g>
               <polyline class="st2" points="540.5,62.1 540.5,323.4 499.4,323.4 499.4,62.1 		" />
@@ -94,11 +101,11 @@
             <path class="st3" d="M84.8,53.8V14.1c0-3.4,2.7-6.1,6.1-6.1h527.2c3.4,0,6.1,2.7,6.1,6.1v39.7c0,3.4-2.7,6.1-6.1,6.1H90.9
 		C87.5,60,84.8,57.2,84.8,53.8z" />
           </g>
-          <line id="left-arm" class="st5" x1="508.4" y1="487.2" x2="391.3" y2="564.9" />
-          <line id="right-arm" class="st5" x1="528" y1="494" x2="636" y2="536" />
-          <line id="left-leg" class="st5" x1="514.4" y1="656.8" x2="435.3" y2="782.7" />
-          <line id="right-leg" class="st5" x1="525.5" y1="661.6" x2="597.1" y2="777.8" />
-          <g id="head">
+          <line id="left-arm" class="body-part st5" data-order=3 x1="508.4" y1="487.2" x2="391.3" y2="564.9" />
+          <line id="right-arm" class="body-part st5" data-order=4 x1="528" y1="494" x2="636" y2="536" />
+          <line id="left-leg" class="body-part st5" data-order=5 x1="514.4" y1="656.8" x2="435.3" y2="782.7" />
+          <line id="right-leg" class="body-part st5" data-order=6 x1="525.5" y1="661.6" x2="597.1" y2="777.8" />
+          <g class="body-part" id="head" data-order=1>
             <radialGradient id="SVGID_1_" cx="523.51" cy="398.3985" r="52.6242" gradientUnits="userSpaceOnUse">
               <stop offset="0.5744" style="stop-color:#000000" />
               <stop offset="0.7977" style="stop-color:#000000" />
@@ -115,10 +122,10 @@
       </div>
       <div class="column" style="display:flex; flex-direction:column;justify-content:center;align-items:start">
         <div class="content is-large mb-6 ml-1">
-          <p id="word" class="title is-1">_ _ _ _</p>
-          <p class="subtitle">Fails: </p>
+          <p id="puzzled-word" class="title is-1">_ _ _ _</p>
+          <pclass="subtitle">Fails: <span id="fails">0</span></p>
         </div>
-        <div>
+        <div id="letters-container">
           <button class="button p-4 m-1">A</button>
           <button class="button p-4 m-1">B</button>
           <button class="button p-4 m-1">C</button>
@@ -149,6 +156,6 @@
     </div>
   </div>
 </div>
-<script src="script.js">
+<script src="hangman/script.js">
 </script>
 <?php include_once(__DIR__ . "/../../../templates/footer.php") ?>

@@ -1,5 +1,5 @@
 <?php
-dictionary = array(
+$dictionary = array(
   "continental",
   "academy",
   "hypothesize",
