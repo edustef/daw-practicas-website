@@ -1,11 +1,14 @@
  <?php
   session_start();
   include_once(__DIR__ . "/../config.php");
+  include_once(__DIR__ . "/../scripts/utilities.php");
 
-  $temas = array_diff(scandir(__DIR__ . "/../practicas"), array(".", ".."));
-  natcasesort($temas);
-  $phpSelfArr = explode("/", $_SERVER["PHP_SELF"]);
-  $activePage =  implode("/", array_slice($phpSelfArr, count($phpSelfArr) - 3, 3));
+  $filesPaths = array();
+  $pathToFolder = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'practicas' . DIRECTORY_SEPARATOR;
+
+  getArrayOfFilePaths($filesPaths, $pathToFolder, 4);
+  // echo '<pre>' . print_r($filePaths, true) . '</pre>';
+
   ?>
  <html lang="en">
 
@@ -51,41 +54,9 @@
      <navbar id="navbar" class="side-navbar column is-2 section has-background-white">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
-        foreach ($temas as $tema) {
-          $absolutePathToPracticas = __DIR__ . '/../practicas/';
-          $temaFormated = str_replace("_", " ", $tema);
-          $practicas = array_diff(scandir($absolutePathToPracticas . $tema), array(".", ".."));
-          natcasesort($practicas);
-          echo '<details class="mt-2" id="' . $tema . '">';
-          echo '<summary class="menu-label">' . $temaFormated .  '</summary>';
-          echo '<ul class="menu-list">';
-          foreach ($practicas as $practica) {
-            $practicaFormated = str_replace("_", " ", $practica);
-            $ejercicios = array_diff(scandir($absolutePathToPracticas . $tema . '/' . $practica), array(".", ".."));
-            natcasesort($ejercicios);
-            echo '<details class="mt-2 ml-2" id="' . $tema . '-' . $practica . '">';
-            echo '<summary class="menu-label">' . $practicaFormated .  '</summary>';
-            echo '<ul class="menu-list">';
-            foreach ($ejercicios as $ejercicio) {
-              $ejercicioFormated = explode(".", str_replace("_", " ", $ejercicio))[0];
-              $pathToPage = $tema . '/' . $practica . '/' . $ejercicio;;
-              $absolutePathToEjercicio = $absolutePathToPracticas . $pathToPage;
 
-              if (is_file($absolutePathToEjercicio)) {
-                if ($pathToPage == $activePage) {
-                  $_SESSION["currentPagePath"] = $pathToPage;
-                  echo '<li><a class="is-active" href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
-                } else {
-                  echo '<li><a href="' . SITE_URL . 'practicas/' . $pathToPage . '">' . $ejercicioFormated . '</a></li>';
-                }
-              }
-            }
-            echo '</ul>';
-            echo '</details>';
-          }
-          echo '</ul>';
-          echo '</details>';
-        }
+        createMenu($filesPaths);
+
         ?>
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
@@ -95,3 +66,11 @@
          <span class="icon has-text-white"><i class="fas fa-bars"></i></span>
        </button>
        <div style="height:4rem"></div>
+       <?php
+        $activePage = removeExtension(getActivePage());
+        $activePageArr = explode('/', $activePage);
+        ?>
+       <header class="mb-4" style="<?= $activePageArr[array_key_last($activePageArr)] == 'index' ? 'display:none' : '' ?>">
+         <p class="mb-2 is-italic"><?= str_replace("/", "  /  ", $activePage) ?></p>
+         <h1 class="title"><?= ucfirst($activePageArr[array_key_last($activePageArr)]) ?></h1>
+       </header>
