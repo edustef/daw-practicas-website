@@ -1,5 +1,5 @@
-let detailsElems = document.querySelectorAll("details");
 let navbarEl = document.getElementById("navbar");
+let detailsElems = document.querySelectorAll("navbar details");
 let navbarScrollTop = sessionStorage.getItem("navbarScrollTop");
 
 // Store the details open property in sessions so if it was opened before reloading or navigating to other page it will still be opened or closed
