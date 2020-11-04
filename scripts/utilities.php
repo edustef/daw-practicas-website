@@ -38,18 +38,17 @@ function createMenu($filePath, $depth = 3)
       }
     } else {
       foreach ($filePath as $key => $value) {
-        $folder = str_replace('_', '-', $key);
         echo '
-                <details id="' . $folder . '" class="mt-2 ml-2">
-                  <summary class="menu-label">' . str_replace('-', ' ', $folder) . '</summary>
+                <details id="' . $key . '" class="mt-2 ml-2">
+                  <summary class="menu-label">' . str_replace('_', ' ', $key) . '</summary>
                   <ul class="menu-list">
               ';
 
         createMenu($value, $depth - 1);
 
         echo '
-                    </ul>
-                  </details>
+                  </ul>
+                </details>
                 ';
       }
     }
