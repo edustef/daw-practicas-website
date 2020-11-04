@@ -32,6 +32,9 @@ if (isset($_POST['cartAction'])) {
       changeQuantityCartProduct($_POST['id'], $_POST['quantity']);
       $res = 'ok';
       break;
+    case 'getTotalPrice':
+      $res = getTotalPrice();
+      break;
   }
 
   echo $res;
@@ -126,18 +129,7 @@ function getCartProducts()
     $output .= $cartProductHTML;
   }
   $output .= '
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <p class="is-size-3">Total: ' . getCartTotal() . '€</p>
-        </div>
-      </div>
-      <div class="level-right">
-        <div class="level-item">
-          <button class="button is-large is-primary">Confirm Purchase</button>
-        </div>
-      </div>
-    </div>
+   
   ';
 
   return $output;
@@ -152,7 +144,7 @@ function getCartNumItems()
   return $count;
 }
 
-function getCartTotal()
+function getTotalPrice()
 {
   $total = 0;
   foreach ($_SESSION['cartProducts'] as $product) {
