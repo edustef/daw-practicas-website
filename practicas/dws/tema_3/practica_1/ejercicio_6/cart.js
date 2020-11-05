@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     'cart-products-container'
   );
   await getCartProducts();
-  await getTotalPrice();
 
   cartProductsContainer.addEventListener('click', async e => {
     let deleteBtn = e.target.closest('.delete-cart-product');
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       await deleteCartProduct(deleteBtn);
       await getCartNumItems();
       await getCartProducts();
-      await getTotalPrice();
     }
   });
 
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (quantityInput) {
       await changeQuantityCartProduct(quantityInput);
       await getCartNumItems();
-      await getTotalPrice();
     }
   });
 });
@@ -45,7 +42,7 @@ async function getCartProducts() {
 async function deleteCartProduct(deleteBtn) {
   let formData = new FormData();
   formData.append('id', deleteBtn.dataset.id);
-  await fetchData({
+  let data = await fetchData({
     actionData: {
       name: 'cartAction',
       action: 'deleteCartProduct',
@@ -55,25 +52,11 @@ async function deleteCartProduct(deleteBtn) {
   });
 }
 
-async function getTotalPrice() {
-  let formData = new FormData();
-  let data = await fetchData({
-    actionData: {
-      name: 'cartAction',
-      action: 'getTotalPrice',
-    },
-    formData: formData,
-    url: 'controller/cartProductsController.php',
-  });
-
-  document.getElementById('total-price').textContent = data;
-}
-
 async function changeQuantityCartProduct(quantityInput) {
   let formData = new FormData();
   formData.append('id', quantityInput.dataset.id);
   formData.append('quantity', quantityInput.value);
-  await fetchData({
+  let data = await fetchData({
     actionData: {
       name: 'cartAction',
       action: 'changeQuantityCartProduct',

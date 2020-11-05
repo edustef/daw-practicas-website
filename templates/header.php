@@ -71,6 +71,6 @@
         $activePageArr = explode('/', $activePage);
         ?>
        <header class="mb-4" style="<?= $activePageArr[array_key_last($activePageArr)] == 'index' ? 'display:none' : '' ?>">
-         <p id="active-page" class="mb-2 is-italic"><?= str_replace("/", "  /  ", $activePage) ?></p>
+         <p class="mb-2 is-italic"><?= str_replace("/", "  /  ", $activePage) ?></p>
          <h1 class="title"><?= ucfirst($activePageArr[array_key_last($activePageArr)]) ?></h1>
        </header>
