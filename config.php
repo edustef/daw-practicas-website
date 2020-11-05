@@ -5,3 +5,6 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 } else {
   define('SITE_URL', 'https://' . $_SERVER["SERVER_NAME"] . '/');
 }
+
+// define folder with practicas depth
+define('FOLDER_DEPTH', 2);

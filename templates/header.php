@@ -2,11 +2,12 @@
   session_start();
   include_once(__DIR__ . "/../config.php");
   include_once(__DIR__ . "/../scripts/utilities.php");
+  include_once(__DIR__ . "/../scripts/createMenu.php");
 
   $filesPaths = array();
   $pathToFolder = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'practicas' . DIRECTORY_SEPARATOR;
 
-  getArrayOfFilePaths($filesPaths, $pathToFolder, 4);
+  getArrayOfFilePaths($filesPaths, $pathToFolder, FOLDER_DEPTH + 1);
   // echo '<pre>' . print_r($filePaths, true) . '</pre>';
 
   ?>
@@ -54,9 +55,7 @@
      <navbar id="navbar" class="side-navbar column is-2 section has-background-white">
        <a class="is-size-4" href=<?= SITE_URL . "index.php" ?>><strong>Home</strong></a>
        <?php
-
-        createMenu($filesPaths);
-
+        createMenu($filesPaths, FOLDER_DEPTH);
         ?>
      </navbar>
      <!-- This div is a placeholder with the same size as navbar so it will push the right column instead of overlapping -->
