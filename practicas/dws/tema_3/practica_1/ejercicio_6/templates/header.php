@@ -33,6 +33,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped">
+
             <p class="control">
               <a class="button is-light" href="cart.php">
                 <span class="icon">
