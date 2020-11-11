@@ -19,6 +19,7 @@
    <title>Practicas DWS</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
    <link rel="stylesheet" property="stylesheet" href="ejercicio_5/bulma-calendar-extension/css/bulma-calendar.min.css">
+   <link rel="stylesheet" property="stylesheet" href="tareas/bulma-calendar-extension/css/bulma-calendar.min.css">
    <style>
      body {
        overflow: hidden;
