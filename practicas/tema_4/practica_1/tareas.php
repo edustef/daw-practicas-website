@@ -1,14 +1,7 @@
 <?php include_once(__DIR__ . "/../../../templates/header.php") ?>
 <div class="block">
 
-
   <?php
-  include('tareas/createTasksHTML.php');
-
-  if (!isset($_SESSION['tasks'])) {
-    $_SESSION['tasks'] = array();
-  }
-
   // echo '<pre>' . print_r($_SESSION['tasks'], true) . '</pre>';
   ?>
   <div class="box">
@@ -47,21 +40,42 @@
           <button id="add-task-btn" type="submit" class="button is-primary" type="submit">Add task</button>
         </div>
       </div>
-
-      <input id="date" name="due-date" type="date">
+      <input id="date" required name="due-date" type="date">
     </form>
     <hr>
-    <div id="task-list">
-      <?php
-
-      echo createTasksHTML();
-      ?>
+    <div>
+      <button id="sort-tasks" class="button mb-4">
+        <span class="icon is-small">
+          <i class="fas fa-sort-amount-down"></i>
+        </span>
+        <span>
+          Priority
+        </span>
+      </button>
+      <form id="filter-date" action="" method="POST">
+        <div class="field has-addons">
+          <div class="control" style="width:260px">
+            <input required name="date" class="input" type="date" placeholder="Add task">
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary mb-4">
+              <span class="icon is-small">
+                <i class="fas fa-filter"></i>
+              </span>
+              <span>
+                Filter Date
+              </span>
+            </button>
+          </div>
+        </div>
+        <div id="task-list">
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 
-<script src="tareas/manageTasks.js"></script>
 <script src="tareas/bulma-calendar-extension/js/bulma-calendar.min.js"></script>
 <script>
   const calendars = bulmaCalendar.attach('[type="date"]', {
@@ -77,14 +91,8 @@
       console.log(date);
     });
   });
-
-  // To access to bulmaCalendar instance of an element
-  const element = document.querySelector('#date');
-  if (element) {
-    // bulmaCalendar instance is available as element.bulmaCalendar
-    element.bulmaCalendar.on('select', datepicker => {
-      console.log(datepicker.data.value());
-    });
-  }
 </script>
+<script src="tareas/Modal.class.js"></script>
+<script src="tareas/manageTasks.js"></script>
+
 <?php include_once(__DIR__ . "/../../../templates/footer.php") ?>

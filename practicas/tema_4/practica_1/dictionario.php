@@ -205,12 +205,24 @@
         <div class="modal-content">
           <div class="box content">
             <h1>Dictionary</h1>
-            <?php
-            ksort($dict);
-            foreach ($dict as $spa => $eng) {
-              echo '<p>' . $spa . ' -> ' . $eng . '</p>';
-            }
-            ?>
+            <table class="table is-striped is-hoverable">
+              <thead>
+                <tr>
+                  <th>Spanish</th>
+                  <th>English</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                ksort($dict);
+                foreach ($dict as $spa => $eng) {
+                  echo '
+                    <tr><td>' . $spa . '</td><td>' . $eng . '</td></tr>
+                  ';
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>

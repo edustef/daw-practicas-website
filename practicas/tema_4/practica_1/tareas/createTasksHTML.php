@@ -1,10 +1,10 @@
 <?php
-function createTasksHTML()
+function createTasksHTML($tasks)
 {
   $output = '';
 
-  if (count($_SESSION['tasks']) > 0) {
-    foreach (array_reverse($_SESSION['tasks'], true) as $key => $task) {
+  if (count($tasks) > 0) {
+    foreach (array_reverse($tasks, true) as $key => $task) {
       $taskHTML = '';
       $desc = $task['desc'];
       $taskPassedStyle = array(
