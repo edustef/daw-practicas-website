@@ -16,7 +16,7 @@ include('./templates/header.php');
 <section class="section container is-max-desktop">
   <form id="add-product-form" method="POST" enctype="multipart/form-data">
     <div class="field">
-      <label for="product-name" class="label">Product name</label>
+      <label for="title" class="label">Product name</label>
       <div class="control">
         <input name="product-name" class="input" type="text" placeholder="Product name">
       </div>
@@ -25,7 +25,7 @@ include('./templates/header.php');
     <div class="field">
       <label class="label">Price</label>
       <div class="control has-icons-left has-icons-right">
-        <input class="input" type="number" placeholder="Your price" value="bulma">
+        <input name="desc" class="input" type="number" placeholder="Your price">
         <span class="icon is-small is-left">
           <i class="fas fa-euro-sign"></i>
         </span>

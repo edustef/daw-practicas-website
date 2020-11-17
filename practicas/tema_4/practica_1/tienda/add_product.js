@@ -1,19 +1,18 @@
 document
-  .getElementById("add-product-form")
-  .addEventListener("submit", async (e) => {
+  .getElementById('add-product-form')
+  .addEventListener('submit', async e => {
     e.preventDefault();
     let formData = new FormData(e.target);
 
     let data = await fetchData({
       actionData: {
-        name: "productAction",
-        action: "addProduct",
+        name: 'productAction',
+        action: 'addProduct',
       },
       formData: formData,
-      url: "controller/productsController.php",
+      url: 'controller/productsController.php',
     });
-    console.log(data);
-    if (data == "ok") {
-      window.location.replace("index.php");
+    if (data == 'ok') {
+      window.location.replace('index.php?successPost');
     }
   });

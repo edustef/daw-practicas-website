@@ -60,9 +60,8 @@ function getProducts($products)
   return $output;
 }
 
-function addProduct()
+function addProduct($title, $desc, $imgUrl, $price)
 {
-  $msg = 'ok';
   $target_dir = "../productImages/";
   $target_file = $target_dir . basename($_FILES["image-file"]["name"]);
   $uploadOk = 1;
@@ -108,5 +107,5 @@ function addProduct()
     }
   }
 
-  return $msg;
+  file_put_contents('../model/store.txt', '|' . $title . '@' . $desc . '@' . $imgUrl . '@' . $price . '|');
 }
