@@ -1,6 +1,6 @@
 <?php
 
-function createMenu($filePath, $depth)
+function createMenu($filePath, $depth, $previous_path = '')
 {
   if (is_array($filePath)) {
     if ($depth == 0) {
@@ -10,17 +10,17 @@ function createMenu($filePath, $depth)
     } else {
       foreach ($filePath as $key => $value) {
         echo '
-<details id="' . $key . '" class="mt-2 ml-2">
-  <summary class="menu-label">' . str_replace('_', ' ', $key) . '</summary>
-  <ul class="menu-list">
-    ';
+        <details id="' . $previous_path . $key . '" class="mt-2 ml-2">
+          <summary class="menu-label">' . str_replace('_', ' ', $key) . '</summary>
+            <ul class="menu-list">
+        ';
 
-        createMenu($value, $depth - 1);
+        createMenu($value, $depth - 1, $key . '_');
 
         echo '
-  </ul>
-</details>
-';
+            </ul>
+          </details>
+        ';
       }
     }
   }
