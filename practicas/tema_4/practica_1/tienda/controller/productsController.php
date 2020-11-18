@@ -9,7 +9,12 @@ if (isset($_POST['productAction'])) {
       $res = getProducts($products);
       break;
     case 'addProduct':
-      $res = addProduct();
+      $res = addProduct(
+        $_POST['title'],
+        $_POST['desc'],
+        $_FILES["img-file"],
+        $_POST['price'],
+      );
       break;
   }
 
@@ -60,15 +65,15 @@ function getProducts($products)
   return $output;
 }
 
-function addProduct($title, $desc, $imgUrl, $price)
+function addProduct($title, $desc, $imgFile, $price)
 {
   $target_dir = "../productImages/";
-  $target_file = $target_dir . basename($_FILES["image-file"]["name"]);
+  $target_file = $target_dir . basename($imgFile["name"]);
   $uploadOk = 1;
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
   // Check if image file is a actual image or fake image
-  $check = getimagesize($_FILES["image-file"]["tmp_name"]);
+  $check = getimagesize($imgFile["tmp_name"]);
   if ($check !== false) {
     $uploadOk = 1;
   } else {
@@ -83,7 +88,7 @@ function addProduct($title, $desc, $imgUrl, $price)
   }
 
   // Check file size
-  if ($_FILES["image-file"]["size"] > 500000) {
+  if ($imgFile["size"] > 500000) {
     $msg = "Sorry, your file is too large.";
     $uploadOk = 0;
   }
@@ -102,10 +107,12 @@ function addProduct($title, $desc, $imgUrl, $price)
     $msg = "Sorry, your file was not uploaded." . $msg;
     // if everything is ok, try to upload file
   } else {
-    if (!move_uploaded_file($_FILES["image-file"]["tmp_name"], $target_file)) {
+    if (!move_uploaded_file($imgFile["tmp_name"], $target_file)) {
       $msg = "Sorry, there was an error uploading your file.";
     }
   }
 
-  file_put_contents('../model/store.txt', '|' . $title . '@' . $desc . '@' . $imgUrl . '@' . $price . '|');
+  file_put_contents('../model/store.txt', '|' . $title . '@' . $desc . '@' . $target_file . '@' . $price . '|');
+
+  return $uploadOk == 0 ? $msg : 'ok';
 }

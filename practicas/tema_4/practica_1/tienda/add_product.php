@@ -18,14 +18,14 @@ include('./templates/header.php');
     <div class="field">
       <label for="title" class="label">Product name</label>
       <div class="control">
-        <input name="product-name" class="input" type="text" placeholder="Product name">
+        <input name="title" class="input" type="text" placeholder="Product name">
       </div>
     </div>
 
     <div class="field">
       <label class="label">Price</label>
       <div class="control has-icons-left has-icons-right">
-        <input name="desc" class="input" type="number" placeholder="Your price">
+        <input name="price" class="input" type="number" placeholder="Your price">
         <span class="icon is-small is-left">
           <i class="fas fa-euro-sign"></i>
         </span>
@@ -34,7 +34,7 @@ include('./templates/header.php');
 
     <div class="file has-name my-4">
       <label class="file-label">
-        <input class="file-input" type="file" name="image-file" enctype="multipart/form-data">
+        <input class="file-input" type="file" name="img-file" enctype="multipart/form-data">
         <span class="file-cta">
           <span class="file-icon">
             <i class="fas fa-upload"></i>
@@ -52,7 +52,7 @@ include('./templates/header.php');
     <div class="field">
       <label class="label">Description</label>
       <div class="control">
-        <textarea class="textarea" placeholder="Textarea"></textarea>
+        <textarea name="desc" class="textarea" placeholder="Textarea"></textarea>
       </div>
     </div>
 
