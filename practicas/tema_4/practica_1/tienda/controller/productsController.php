@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../model/products.php');
+$products = readProducts('../model/store.txt');
 
 if (isset($_POST['productAction'])) {
   $res = 'error';
@@ -10,6 +11,7 @@ if (isset($_POST['productAction'])) {
       break;
     case 'addProduct':
       $res = addProduct(
+        $products,
         $_POST['title'],
         $_POST['desc'],
         $_FILES["img-file"],
@@ -23,49 +25,55 @@ if (isset($_POST['productAction'])) {
 
 function getProducts($products)
 {
-  $output = '';
-  $output .= '<div class="columns is-multiline">';
-  foreach ($products as $product) {
-    $productHTML = '
-  <div class="product column is-narrow is-one-third">
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-4by3">
-          <img src="' . $product['imgUrl'] . '" alt="Placeholder image">
-        </figure>
-      </div>
-      <div class="card-content">
-        <p class="title is-4">' . $product['title'] . '</p>
-        <div class="content">
-          ' . $product['desc'] . '
-          <p class="mt-4 has-text-primary is-size-4">' . $product['price'] . '€</p>
+  if (count($products) > 0) {
+    $output = '';
+    $output .= '<div class="columns is-multiline">';
+
+    foreach ($products as $product) {
+      $productHTML = '
+        <div class="product column is-narrow is-one-third">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="productImages/' . $product['imgUrl'] . '" alt="Placeholder image" style="width:100%;height:100%;object-fit:cover">
+              </figure>
+            </div>
+            <div class="card-content">
+              <p class="title is-4">' . $product['title'] . '</p>
+              <div class="content">
+                ' . $product['desc'] . '
+                <p class="mt-4 has-text-primary is-size-4">' . $product['price'] . '€</p>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a data-id="' . $product['id'] . '" class="add-product card-footer-item">
+                <span class="icon mr-2">
+                  <i class="fas fa-cart-plus"></i>
+                </span>
+                <span>Add to cart</span>
+              </a>
+              <a href="#" class="card-footer-item">
+                <span class="icon mr-2">
+                  <i class="fas fa-ellipsis-h"></i>
+                </span>
+                <span>See details</span>
+              </a>
+            </footer>
+          </div>
         </div>
-      </div>
-      <footer class="card-footer">
-        <a data-id="' . $product['id'] . '" class="add-product card-footer-item">
-          <span class="icon mr-2">
-            <i class="fas fa-cart-plus"></i>
-          </span>
-          <span>Add to cart</span>
-        </a>
-        <a href="#" class="card-footer-item">
-          <span class="icon mr-2">
-            <i class="fas fa-ellipsis-h"></i>
-          </span>
-          <span>See details</span>
-        </a>
-      </footer>
-    </div>
-  </div> ';
+      ';
 
-    $output .= $productHTML;
+      $output .= $productHTML;
+    }
+
+    $output .= '</div>';
+  } else {
+    $output = '<p class="has-text-grey is-italic">Sorry, there are no products available :(</p>';
   }
-  $output .= '</div>';
-
   return $output;
 }
 
-function addProduct($title, $desc, $imgFile, $price)
+function addProduct(&$products, $title, $desc, $imgFile, $price)
 {
   $target_dir = "../productImages/";
   $target_file = $target_dir . basename($imgFile["name"]);
@@ -109,10 +117,24 @@ function addProduct($title, $desc, $imgFile, $price)
   } else {
     if (!move_uploaded_file($imgFile["tmp_name"], $target_file)) {
       $msg = "Sorry, there was an error uploading your file.";
+    } else {
+
+      $products[] = array(
+        'id' => (getLastId('../model/store.txt') + 1),
+        'title' => $title,
+        'desc' => $desc,
+        'imgUrl' => basename($imgFile['name']),
+        'price' => $price
+      );
+
+      $productsRaw = array();
+
+      foreach ($products as $product) {
+        $productsRaw[] = $product['id'] . '@' . $product['title'] . '@' . $product['desc'] . '@' . $product['imgUrl'] . '@' . $product['price'] . '|';
+      }
+      file_put_contents('../model/store.txt', $productsRaw);
     }
   }
-
-  file_put_contents('../model/store.txt', '|' . $title . '@' . $desc . '@' . $target_file . '@' . $price . '|');
 
   return $uploadOk == 0 ? $msg : 'ok';
 }

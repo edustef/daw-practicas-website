@@ -6,12 +6,11 @@ if (!isset($_SESSION['cartProducts'])) {
   $_SESSION['cartProducts'] = array();
 }
 
-
 if (isset($_POST['cartAction'])) {
   $res = 'error';
   switch ($_POST['cartAction']) {
     case 'addCartProduct':
-      addCartProduct($_POST['id'], $products);
+      addCartProduct($_POST['id'], readProducts('../model/store.txt'));
       $res = 'ok';
       break;
     case 'getCartProducts':
@@ -50,7 +49,6 @@ function addCartProduct($id, $products)
     $_SESSION['cartProducts'][$productInCartKey]['quantity'] += 1;
   } else {
     $product['quantity'] = 1;
-    $product['imgUrl'] = 'https://dummyimage.com/128x128/ddd/000.png&text=Product+' . $product['id'];
 
     $_SESSION['cartProducts'][] = $product;
   }
@@ -90,8 +88,8 @@ function getCartProducts()
         <div class="box level">
           <div class="level-left">
             <div class="level-item">
-              <figure class="image" style="margin: 1rem auto">
-                <img src="' . $cartProduct['imgUrl'] . '" alt="Placeholder image">
+              <figure class="is-128x128 image" style="margin: 1rem auto">
+                <img src="productImages/' . $cartProduct['imgUrl'] . '" alt="Placeholder image" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
             <div class="level-item">

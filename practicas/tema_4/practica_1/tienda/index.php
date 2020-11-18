@@ -1,5 +1,7 @@
 <?php
 include('./templates/header.php');
+
+
 ?>
 <section class="hero is-primary is-bold">
   <div class="hero-body">
@@ -14,6 +16,16 @@ include('./templates/header.php');
   </div>
 </section>
 <section class="section">
+  <?php
+  if (isset($_GET['successPost'])) {
+    echo '
+      <div class="level container box notification is-primary p-4">
+        <div class="level-left">
+          <button class="delete mr-4"></button> Posted added succesfully
+        </div>
+      </div>';
+  }
+  ?>
   <div id="products-container" class="container"></div>
 </section>
 <script src="index.js"></script>
